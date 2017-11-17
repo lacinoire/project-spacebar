@@ -21,24 +21,42 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\ItemDetailPage.xaml.cs">
-      <DependentUpon>ItemDetailPage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\OrderDetailPage.xaml.cs">
+      <DependentUpon>OrderDetailPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\ItemsPage.xaml.cs">
-      <DependentUpon>ItemsPage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\OrderPage.xaml.cs">
+      <DependentUpon>OrderPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\NewItemPage.xaml.cs">
-      <DependentUpon>NewItemPage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\NewOrderPage.xaml.cs">
+      <DependentUpon>NewOrderPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\PendingOrderPage.xaml.cs">
+      <DependentUpon>PendingOrderPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\LeaderboardPage.xaml.cs">
+      <DependentUpon>LeaderboardPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SkillsPage.xaml.cs">
+      <DependentUpon>SkillsPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ItemDetailPage.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ItemsPage.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\NewItemPage.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\OrderDetailPage.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\OrderPage.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\NewOrderPage.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PendingOrderPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\LeaderboardPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\SkillsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

@@ -4,12 +4,12 @@ using Xamarin.Forms;
 
 namespace ProjectSPACEbar
 {
-    public partial class ItemDetailPage : ContentPage
+    public partial class OrderDetailPage : ContentPage
     {
         ItemDetailViewModel viewModel;
 
         // Note - The Xamarin.Forms Previewer requires a default, parameterless constructor to render a page.
-        public ItemDetailPage()
+        public OrderDetailPage()
         {
             InitializeComponent();
 
@@ -23,7 +23,7 @@ namespace ProjectSPACEbar
             BindingContext = viewModel;
         }
 
-        public ItemDetailPage(ItemDetailViewModel viewModel)
+        public OrderDetailPage(ItemDetailViewModel viewModel)
         {
             InitializeComponent();
 
