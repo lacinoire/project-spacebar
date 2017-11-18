@@ -5,11 +5,14 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
+using ProjectSPACEbar.ViewModels;
+using System.Linq;
+
 namespace ProjectSPACEbar
 {
     public partial class OrderPage : ContentPage
     {
-        public List<Order> OpenOrders { get; }//App.OpenOrders;
+        public List<OrderViewModel> OpenOrders { get; }//App.OpenOrders;
 
         public OrderPage()
         {
@@ -17,13 +20,18 @@ namespace ProjectSPACEbar
 
             BindingContext = this;
             //OrdersListView.BindingContext = this;
-            OpenOrders = new List<Order>();
-            OpenOrders.Add(new Order
-            {
-                Id = "1",
-                Text = "TestOrder",
-                Description = "This is for testing.",
-            });
+			var orderList = new List<Order>();
+			orderList.Add(new Order
+			{
+				Id = "1",
+				Text = "TestOrder",
+				Description = "This is for testing.",
+			});
+			OpenOrders = new List<OrderViewModel>();
+            OpenOrders.AddRange(orderList.Select(o => new OrderViewModel(o)
+			{
+				OnDetailsClicked = new Command(async () => await DetailsClicked(o)),
+			}));
             OrdersListView.ItemsSource = OpenOrders;
              //LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
@@ -47,9 +55,9 @@ namespace ProjectSPACEbar
 
         }
 
-        async void DetailsClicked(object sender, EventArgs e)
+        async Task DetailsClicked(Order order)
         {
-            await Navigation.PushAsync(new OrderDetailPage(new ItemDetailViewModel(((Order)sender))));
+            await Navigation.PushAsync(new OrderDetailPage(new ItemDetailViewModel(order)));
         }
         //async void AddItem_Clicked(object sender, EventArgs e)
         //{

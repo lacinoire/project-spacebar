@@ -31,22 +31,22 @@
                                     Padding="10"
                                     Orientation="Vertical">
                                     <Label
-                                        Text="{Binding Text}"
+                                        Text="{Binding Order.Text}"
                                         LineBreakMode="NoWrap"
                                         Style="{DynamicResource ListItemTextStyle}"
                                         FontSize="16" />
                                     <Label
-                                        Text="{Binding Description}"
+                                        Text="{Binding Order.Description}"
                                         LineBreakMode="NoWrap"
                                         Style="{DynamicResource ListItemDetailTextStyle}"
                                         FontSize="13" />
                                 </StackLayout>
-                                <Button
+								<Button
                                     Text="Details"
-                                    Clicked="DetailsClicked"/>
-                                    <!--Command="{Binding OnDetailsClicked}"
-                                    CommandParameter="{Binding}" -->
-                            </StackLayout>
+                                    Command="{Binding OnDetailsClicked}"/>
+									<!--CommandParameter="{Binding Order}"
+									Clicked="DetailsClicked"/>-->
+							</StackLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

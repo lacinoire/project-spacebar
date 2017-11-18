@@ -1,4 +1,5 @@
 ﻿using System;
+using Xamarin.Forms;
 
 namespace ProjectSPACEbar
 {
@@ -11,9 +12,5 @@ namespace ProjectSPACEbar
         public string Id { get; set; }
         public string Text { get; set; }
         public string Description { get; set; }
-
-
-
-        //public Command OnDetailsClicked => new Command(DetailsClicked);
     }
 }
