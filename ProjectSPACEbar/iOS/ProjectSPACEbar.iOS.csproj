@@ -116,6 +116,11 @@
     <ImageAsset Include="Assets.xcassets\Contents.json">
       <InProject>false</InProject>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\iPhone_icon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\iPhone_icon%403x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\iPad.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\iPadPro.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\app_store.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\tab_about.png" />
@@ -142,6 +147,12 @@
     <BundleResource Include="Resources\user_male.png" />
     <BundleResource Include="Resources\user_male%402x.png" />
     <BundleResource Include="Resources\user_male%403x.png" />
+    <BundleResource Include="Resources\app_store.png" />
+    <BundleResource Include="Resources\iPad.png" />
+    <BundleResource Include="Resources\iPadPro.png" />
+    <BundleResource Include="Resources\iPhone_icon%402x.png" />
+    <BundleResource Include="Resources\iPhone_icon%403x.png" />
+    <BundleResource Include="Resources\spacebar_transparent.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

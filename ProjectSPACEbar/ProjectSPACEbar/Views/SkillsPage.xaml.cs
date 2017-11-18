@@ -33,6 +33,7 @@ namespace ProjectSPACEbar.Views
                 return;
             }
             await App.DataStore.BuySkill(App.CurrentUser, boughtSkill);
+            App.CurrentUser.NotifyPropertyChanged(nameof(App.CurrentUser.SkillsListText));
 			App.NotifyAll();
             SkillsList.SelectedItem = null;
         }

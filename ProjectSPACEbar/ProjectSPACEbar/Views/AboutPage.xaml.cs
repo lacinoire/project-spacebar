@@ -25,7 +25,7 @@ namespace ProjectSPACEbar
         async Task Initialize()
         {
             App.CurrentUser.Skills = new List<Skill>(await App.DataStore.GetSkills(App.CurrentUser, SkillsFilter.Bought));
-            OnPropertyChanged(nameof(CurrentUser));
+            CurrentUser.NotifyPropertyChanged(nameof(CurrentUser.SkillsListText));
         }
     }
 }
