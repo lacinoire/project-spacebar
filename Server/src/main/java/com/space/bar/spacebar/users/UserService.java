@@ -14,7 +14,7 @@ public class UserService {
     }
 
     public boolean createUser(String username) {
-        if (users.containsKey(username)) return false;
+        if (username == null || users.containsKey(username)) return false;
         users.put(username, new User(username));
         switch (username.toLowerCase()) {
             case "laci":
