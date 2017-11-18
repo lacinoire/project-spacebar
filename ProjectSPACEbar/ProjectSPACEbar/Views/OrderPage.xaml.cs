@@ -6,11 +6,11 @@ using Xamarin.Forms;
 
 namespace ProjectSPACEbar
 {
-    public partial class ItemsPage : ContentPage
+    public partial class OrderPage : ContentPage
     {
         ItemsViewModel viewModel;
 
-        public ItemsPage()
+        public OrderPage()
         {
             InitializeComponent();
 
@@ -23,16 +23,16 @@ namespace ProjectSPACEbar
             if (item == null)
                 return;
 
-            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
+            await Navigation.PushAsync(new OrderDetailPage(new ItemDetailViewModel(item)));
 
             // Manually deselect item
             ItemsListView.SelectedItem = null;
         }
 
-        async void AddItem_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new NewItemPage());
-        }
+        //async void AddItem_Clicked(object sender, EventArgs e)
+        //{
+        //    await Navigation.PushAsync(new NewOrderPage());
+        //}
 
         protected override void OnAppearing()
         {

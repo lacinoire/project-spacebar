@@ -4,11 +4,11 @@ using Xamarin.Forms;
 
 namespace ProjectSPACEbar
 {
-    public partial class NewItemPage : ContentPage
+    public partial class NewOrderPage : ContentPage
     {
         public Item Item { get; set; }
 
-        public NewItemPage()
+        public NewOrderPage()
         {
             InitializeComponent();
 
