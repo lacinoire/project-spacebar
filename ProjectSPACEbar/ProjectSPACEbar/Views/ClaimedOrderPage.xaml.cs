@@ -18,9 +18,7 @@ namespace ProjectSPACEbar.Views
 
         async void OnFulfilledClicked(object sender, EventArgs e)
         {
-            App.CurrentUser.FulfilledOrdersWaitingForConfirmation.Add(CurrentOrder);
-            App.CurrentUser.ClaimedOrders.Remove(CurrentOrder);
-
+            await App.DataStore.OrderAction(App.CurrentUser, CurrentOrder, "finish");
             await Navigation.PopAsync(true);
         }
     }

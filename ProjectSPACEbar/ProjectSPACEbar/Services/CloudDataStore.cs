@@ -96,23 +96,15 @@ namespace ProjectSPACEbar
 
 		public Order ToOrder()
 		{
-			return new Order
-			{
-				Id = id,
-				IsClaimed = isClaimed,
-				IsApproved = isApproved,
-				IsFinished = isFinished,
-				MenuItem = item.ToMenuItem(),
-				Creator = new Lazy<Task<User>>(async () =>
-				{
-					var store = App.DataStore;
-					return await store.GetUser(fromUser);
-				}),
-				Assignee = new Lazy<Task<User>>(async () =>
-				{
-					var store = App.DataStore;
-					return await store.GetUser(assignee);
-				}),
+            return new Order
+            {
+                Id = id,
+                IsClaimed = isClaimed,
+                IsApproved = isApproved,
+                IsFinished = isFinished,
+                MenuItem = item.ToMenuItem(),
+                CreatorName = fromUser,
+                AssigneeName = assignee,
 			};
 		}
 	}

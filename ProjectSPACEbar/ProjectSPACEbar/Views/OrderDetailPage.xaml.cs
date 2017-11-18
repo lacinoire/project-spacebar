@@ -29,8 +29,7 @@ namespace ProjectSPACEbar
         }
 
         async void OnClaimClicked(object sender, EventArgs e) {
-            App.CurrentUser.ClaimedOrders.Insert(0,order);
-            App.OpenOrders.Remove(order);
+            await App.DataStore.OrderAction(App.CurrentUser, order, "claim");
             await Navigation.PushAsync(new ClaimedOrderPage(order));
             Navigation.RemovePage(Navigation.NavigationStack[1]);
         }

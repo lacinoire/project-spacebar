@@ -19,19 +19,11 @@ namespace ProjectSPACEbar
             InitializeComponent();
 
             BindingContext = this;
+            OpenOrders = new List<OrderViewModel>();
+            Initialize();
             //OrdersListView.BindingContext = this;
-			var orderList = new List<Order>();
-			orderList.Add(new Order
-			{
-				Id = 1,
-			});
-			OpenOrders = new List<OrderViewModel>();
-            OpenOrders.AddRange(orderList.Select(o => new OrderViewModel(o)
-			{
-				OnDetailsClicked = new Command(async () => await DetailsClicked(o)),
-			}));
-            OrdersListView.ItemsSource = OpenOrders;
-             //LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+
+            //LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
             //MessagingCenter.Subscribe<NewOrderPage, Order>(this, "AddItem", async (obj, item) =>
             //{
@@ -41,6 +33,16 @@ namespace ProjectSPACEbar
             //});
         }
 
+        async Task Initialize()
+        {
+            IEnumerable<Order> orderList = await App.DataStore.GetOrders(App.CurrentUser, OrderFilter.Open);
+
+            OpenOrders.AddRange(orderList.Select(o => new OrderViewModel(o)
+            {
+                OnDetailsClicked = new Command(async () => await DetailsClicked(o)),
+            }));
+            OrdersListView.ItemsSource = OpenOrders;
+        }
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
             var order = args.SelectedItem as Order;
@@ -50,7 +52,6 @@ namespace ProjectSPACEbar
             }
             await Navigation.PushAsync(new OrderDetailPage(order));
             //OrdersListView.SelectedItem = null;
-
         }
 
         async Task DetailsClicked(Order order)
@@ -67,7 +68,7 @@ namespace ProjectSPACEbar
             base.OnAppearing();
 
             //if (OpenOrders.Count == 0)
-                //LoadItemsCommand.Execute(null);
+            //LoadItemsCommand.Execute(null);
         }
 
         public Command LoadItemsCommand { get; set; }

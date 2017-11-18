@@ -8,10 +8,10 @@
 		Spacing="20"
 		Padding="15">
 		<Label
-			Text="{Binding Item.Text}"
+			Text="{Binding MenuItem.name}"
 			FontSize="Medium" />
 		<Label
-			Text="{Binding Item.Description}"
+			Text="{Binding CreatorName}"
 			FontSize="Small" />
         <Button
             Text="Claim Order!"
