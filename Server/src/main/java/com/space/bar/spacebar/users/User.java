@@ -3,10 +3,11 @@ package com.space.bar.spacebar.users;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.space.bar.spacebar.skills.Skill;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class User {
+public class User implements Serializable {
     private final String username;
     private int totalXp = 0;
     private int usableXp = 0;
@@ -37,6 +38,7 @@ public class User {
         if (s.xpCost > getUsableXp()) {
             throw new IllegalArgumentException("You do not have the required XP left.");
         }
+        usableXp -= s.xpCost;
         skills.add(s);
     }
 

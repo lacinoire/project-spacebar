@@ -1,10 +1,10 @@
 package com.space.bar.spacebar.orders;
 
-import com.space.bar.spacebar.DataSource;
 import com.space.bar.spacebar.skills.DiscountSkill;
 import com.space.bar.spacebar.skills.Skill;
 
 import java.util.Collection;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class MenuView extends Menu {
@@ -27,8 +27,8 @@ public class MenuView extends Menu {
 
     private Collection<Skill> skills;
 
-    public MenuView(Collection<Skill> skills) {
-        super(DataSource.getAllItems());
+    public MenuView(Collection<Skill> skills, Set<MenuItem> allMenuItems) {
+        super(allMenuItems);
         this.skills = skills;
     }
 

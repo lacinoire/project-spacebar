@@ -53,7 +53,7 @@ public class SkillsController {
         } else if (skill == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Skill not found"));
         } else if (skills.getAvailable(user).noneMatch(skill::equals)) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Skill is not available yet"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Skill is not available"));
         } else if (skill.xpCost > user.getUsableXp()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("You cannot afford that skill just yet."));
         }

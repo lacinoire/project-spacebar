@@ -1,10 +1,11 @@
 package com.space.bar.spacebar.skills;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class Skill {
+public abstract class Skill implements Serializable {
     private static int nextId = 1;
 
     public final int id = nextId++;

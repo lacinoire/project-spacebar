@@ -1,7 +1,7 @@
 package com.space.bar.spacebar.skills;
 
-import com.space.bar.spacebar.DataSource;
 import com.space.bar.spacebar.users.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -13,9 +13,10 @@ public class SkillService {
     private Set<Skill> basicSkills = new HashSet<>();
     private Set<Skill> allSkills = new HashSet<>();
 
-    public SkillService() {
-        for (Skill skill : DataSource.getAllSkills()) {
-            if (DataSource.getBasicSkills().contains(skill)) {
+    @Autowired
+    public SkillService(SkillsProvider provider) {
+        for (Skill skill : provider.getAllSkills()) {
+            if (provider.getBasicSkills().contains(skill)) {
                 addBaseSkill(skill);
             } else {
                 addSkill(skill);
@@ -28,9 +29,7 @@ public class SkillService {
     }
 
     public Stream<Skill> getAvailable(User user) {
-        return Stream.concat(
-                getBasic().filter(skill -> !user.getSkills().contains(skill)),
-                user.getSkills().stream().flatMap(this::getNext));
+        return Stream.concat(getBasic(), user.getSkills().stream().flatMap(this::getNext)).filter(skill -> !user.getSkills().contains(skill));
     }
 
     public Stream<Skill> getPurchased(User user) {
@@ -42,7 +41,7 @@ public class SkillService {
     }
 
     public Stream<Skill> getNext(Skill skill) {
-        return allSkills.stream().filter(s -> skill.nextSkills.contains(s.name));
+        return allSkills.stream().filter(s -> skill.nextSkills.contains(s.id));
     }
 
     public Skill getSkill(int id) {

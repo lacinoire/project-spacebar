@@ -9,8 +9,13 @@ import java.util.*;
 public class Menu {
     private final Map<Integer,MenuItem> drinks = new HashMap<>();
 
-    @Autowired public Menu(Set<MenuItem> menuItems) {
-        menuItems.forEach(this::addMenuItem);
+    @Autowired
+    public Menu(ItemProvider items) {
+        this(items.getAllItems());
+    }
+
+    public Menu(Collection<MenuItem> items) {
+        items.forEach(this::addMenuItem);
     }
 
     public Collection<MenuItem> getDrinks() {
@@ -18,11 +23,7 @@ public class Menu {
     }
 
     public MenuItem getMenuItemById(int id) {
-        if (drinks.containsKey(id)) {
-            return drinks.get(id);
-        } else {
-            return null;
-        }
+        return drinks.getOrDefault(id, null);
     }
 
     private void addMenuItem(MenuItem item) {

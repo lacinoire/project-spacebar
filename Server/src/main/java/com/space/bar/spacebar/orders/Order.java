@@ -1,7 +1,5 @@
 package com.space.bar.spacebar.orders;
 
-import com.space.bar.spacebar.users.User;
-
 public class Order {
     private static int nextId = 1;
 

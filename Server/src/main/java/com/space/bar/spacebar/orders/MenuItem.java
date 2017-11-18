@@ -1,9 +1,8 @@
 package com.space.bar.spacebar.orders;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.io.Serializable;
 
-public class MenuItem {
+public class MenuItem implements Serializable {
     private static int nextId = 1;
 
     private final int id;
@@ -20,7 +19,7 @@ public class MenuItem {
         this.xpGain = xpGain;
     }
 
-    protected MenuItem(int id, String content, int size, int price, int xpGain) {
+    MenuItem(int id, String content, int size, int price, int xpGain) {
         this.id = id;
         this.content = content;
         this.size = size;

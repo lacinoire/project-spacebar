@@ -1,14 +1,17 @@
 package com.space.bar.spacebar.users;
 
-import org.springframework.stereotype.Service;
+import com.space.bar.spacebar.StorageWriter;
 
+import javax.annotation.PreDestroy;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
 
-@Service
 public class UserService {
-    private Map<String,User> users = new HashMap<>();
+    private HashMap<String,User> users;
+
+    public UserService(HashMap<String, User> users) {
+        this.users = users;
+    }
 
     public boolean createUser(String username) {
         if (users.containsKey(username)) return false;
@@ -24,6 +27,11 @@ public class UserService {
                 break;
         }
         return true;
+    }
+
+    @PreDestroy
+    public void store() {
+        StorageWriter.saveToFile(users, "users.ser");
     }
 
     public User getUser(String username) {

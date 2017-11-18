@@ -1,6 +1,7 @@
 package com.space.bar.spacebar;
 
 import com.space.bar.spacebar.network.ErrorResponse;
+import com.space.bar.spacebar.orders.ItemProvider;
 import com.space.bar.spacebar.orders.MenuView;
 import com.space.bar.spacebar.skills.SkillService;
 import com.space.bar.spacebar.users.User;
@@ -20,11 +21,13 @@ import java.util.stream.Collectors;
 public class MenuController {
     private final UserService users;
     private final SkillService skills;
+    private final ItemProvider itemProvider;
 
     @Autowired
-    public MenuController(UserService users, SkillService skills) {
+    public MenuController(UserService users, SkillService skills, ItemProvider itemProvider) {
         this.users = users;
         this.skills = skills;
+        this.itemProvider = itemProvider;
     }
 
     @GetMapping
@@ -33,7 +36,7 @@ public class MenuController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("User not found"));
         }
         User user = users.getUser(username);
-        MenuView view = new MenuView(skills.getPurchased(user).collect(Collectors.toList()));
+        MenuView view = new MenuView(skills.getPurchased(user).collect(Collectors.toList()), itemProvider.getAllItems());
         return ResponseEntity.ok().body(view);
     }
 }
