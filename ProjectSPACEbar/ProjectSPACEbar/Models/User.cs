@@ -5,9 +5,13 @@ namespace ProjectSPACEbar
 {
     public class User
     {
+        public uint earnedXP { get; set; }
+        public uint currentXP { get; set; }
+        public string Name { get; set; }
+
         public List<Order> ClaimedOrders { get; }
         public List<Order> FulfilledOrdersWaitingForConfirmation { get; }
-		public string Name { get; }
+        
 
         public User()
         {
