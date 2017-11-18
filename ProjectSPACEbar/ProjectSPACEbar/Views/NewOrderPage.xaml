@@ -7,7 +7,8 @@
 	<ContentPage.Content>
 		<ListView
             x:Name="Menu"
-            VerticalOptions="FillAndExpand">
+            VerticalOptions="FillAndExpand"
+            HasUnevenRows="true">
             <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -30,7 +31,7 @@
                                         FontSize="13" />
                                 </StackLayout>
                                 <Button
-                                    Text="Details"
+                                    Text="Order this"
                                     Command="{Binding OnOrderClicked}"/>
                                     <!--CommandParameter="{Binding Order}"
                                     Clicked="DetailsClicked"/>-->

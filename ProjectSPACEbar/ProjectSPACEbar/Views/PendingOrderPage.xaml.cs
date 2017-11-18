@@ -7,9 +7,20 @@ namespace ProjectSPACEbar.Views
 {
     public partial class PendingOrderPage : ContentPage
     {
-        public PendingOrderPage()
+        Order PendingOrder;
+
+        public PendingOrderPage(Order pendingOrder) 
         {
             InitializeComponent();
+            PendingOrder = pendingOrder;
+            BindingContext = PendingOrder;
+
+        }
+
+        async void OnConfirmClicked(object sender, EventArgs e)
+        {
+            await App.DataStore.OrderAction(App.CurrentUser, PendingOrder, "approve");
+            await Navigation.PopAsync(true);
         }
     }
 }

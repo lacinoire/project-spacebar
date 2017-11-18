@@ -43,6 +43,7 @@ namespace ProjectSPACEbar
             }));
             OrdersListView.ItemsSource = OpenOrders;
         }
+
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
             var order = args.SelectedItem as Order;

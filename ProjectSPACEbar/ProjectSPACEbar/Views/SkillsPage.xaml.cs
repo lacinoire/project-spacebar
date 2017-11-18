@@ -12,6 +12,7 @@ namespace ProjectSPACEbar.Views
 
         public SkillsPage()
         {
+            InitializeComponent();
             Initialize();
         }
 
@@ -22,7 +23,7 @@ namespace ProjectSPACEbar.Views
             SkillsList.ItemSelected += OnItemSelected;
         }
 
-        async Task OnItemSelected(object sender, SelectedItemChangedEventArgs args) {
+        async void OnItemSelected(object sender, SelectedItemChangedEventArgs args) {
             var boughtSkill = args.SelectedItem as Skill;
             if (boughtSkill == null || App.CurrentUser.CurrentXP < boughtSkill.XPcost)
             {

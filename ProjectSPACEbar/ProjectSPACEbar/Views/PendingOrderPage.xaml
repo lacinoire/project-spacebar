@@ -5,6 +5,17 @@
 	x:Class="ProjectSPACEbar.Views.PendingOrderPage"
     Title="Pending Order"
     x:Name="PendingOrderPage">
-	<ContentPage.Content>
-	</ContentPage.Content>
+    <StackLayout
+        Spacing="20"
+        Padding="15">
+        <Label
+            Text="{Binding Text}"
+            FontSize="Medium" />
+        <Label
+            Text="{Binding DetailText}"
+            FontSize="Small" />
+        <Button
+            Text="Order was delivered :D"
+            Clicked="OnConfirmClicked" />
+    </StackLayout>
 </ContentPage>
