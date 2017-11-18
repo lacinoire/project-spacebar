@@ -13,7 +13,7 @@
     <ContentPage.Content>
         <StackLayout>
             <ListView
-                x:Name="ItemsListView"
+                x:Name="OrdersListView"
                 ItemsSource="{Binding OpenOrders}"
                 VerticalOptions="FillAndExpand"
                 ItemSelected="OnItemSelected">
