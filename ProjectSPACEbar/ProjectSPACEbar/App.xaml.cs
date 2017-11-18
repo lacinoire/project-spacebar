@@ -30,12 +30,7 @@ namespace ProjectSPACEbar
         {
             InitializeComponent();
 
-            CurrentUser = new User()
-            {
-                EarnedXP = 5000,
-                CurrentXP = 2157,
-                Name = "Ich",
-            };
+			CurrentUser = new User();
 
 			DependencyService.Register<CloudDataStore>();
 
