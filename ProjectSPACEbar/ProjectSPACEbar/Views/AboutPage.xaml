@@ -17,10 +17,12 @@
                     Text="Name: "
                     FontSize="16"
                     TextColor="Navy"
-                    FontAttributes="Bold"/>
+                    FontAttributes="Bold"
+                    HorizontalTextAlignment="Center"/>
                 <Label
                     Text="{Binding Name}"
-                    FontSize="14" />
+                    FontSize="14"
+                    HorizontalTextAlignment="Center"/>
             </StackLayout>
             <StackLayout
                 Padding="5"
@@ -29,10 +31,12 @@
                     Text="Total Earned XP: "
                     FontSize="16"
                     TextColor="Navy"
-                    FontAttributes="Bold"/>
+                    FontAttributes="Bold"
+                    HorizontalTextAlignment="Center"/>
                 <Label
                     Text="{Binding EarnedXP}"
-                    FontSize="14" />
+                    FontSize="14"
+                    HorizontalTextAlignment="Center" />
             </StackLayout>
             <StackLayout
                 Padding="5"
@@ -41,10 +45,12 @@
                     Text="Currently Unspent XP: "
                     FontSize="16"
                     TextColor="Navy"
-                    FontAttributes="Bold"/>
+                    FontAttributes="Bold"
+                    HorizontalTextAlignment="Center"/>
                 <Label
                     Text="{Binding CurrentXP}"
-                    FontSize="14" />
+                    FontSize="14"
+                    HorizontalTextAlignment="Center"/>
             </StackLayout>
             <StackLayout
                 Padding="5"
@@ -53,10 +59,12 @@
                     Text="Skills: "
                     FontSize="16"
                     TextColor="Navy"
-                    FontAttributes="Bold"/>
+                    FontAttributes="Bold"
+                    HorizontalTextAlignment="Center"/>
                 <Label
                     Text="{Binding Name}"
-                    FontSize="14" />
+                    FontSize="14"
+                    HorizontalTextAlignment="Center" />
             </StackLayout>
             <Label
                 Text="Logos from https://icons8.com/ios under CC-BY-ND 3.0 Unported"
