@@ -1,11 +1,14 @@
 package com.space.bar.spacebar.network;
 
 public class OrderApprovement {
-    private final String username;
-    private final int order;
+    private String username;
+    private int order;
 
-    public OrderApprovement(String username, int order) {
+    public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void setOrder(int order) {
         this.order = order;
     }
 

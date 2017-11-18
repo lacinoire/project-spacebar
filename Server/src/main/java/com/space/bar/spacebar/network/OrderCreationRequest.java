@@ -1,11 +1,16 @@
 package com.space.bar.spacebar.network;
 
 public class OrderCreationRequest {
-    private final String username;
-    private final int item;
+    private String username;
+    private int item;
 
-    public OrderCreationRequest(String username, int item) {
+    public OrderCreationRequest() {}
+
+    public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void setItem(int item) {
         this.item = item;
     }
 

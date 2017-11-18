@@ -4,7 +4,6 @@ import com.space.bar.spacebar.network.ErrorResponse;
 import com.space.bar.spacebar.network.OrderCreationRequest;
 import com.space.bar.spacebar.orders.Menu;
 import com.space.bar.spacebar.orders.Order;
-import com.space.bar.spacebar.users.User;
 import com.space.bar.spacebar.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,7 +33,7 @@ public class OrderController {
         } else if (Menu.getMenu().getMenuItemById(request.getItem()) == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Item not found"));
         } else {
-            orders.add(new Order(Menu.getMenu().getMenuItemById(request.getItem()), service.getUser(request.getUsername())));
+            orders.add(new Order(Menu.getMenu().getMenuItemById(request.getItem()), request.getUsername()));
             return ResponseEntity.ok().build();
         }
     }
@@ -44,14 +43,13 @@ public class OrderController {
         if (service.getUser(username) == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("User not found."));
         }
-        User user = service.getUser(username);
         switch (filter) {
             case "own":
-                return respondWithFilteredOrders(o -> o.getFromUser().equals(user));
+                return respondWithFilteredOrders(o -> o.getFromUser().equals(username));
             case "open":
-                return respondWithFilteredOrders(o -> o.getStatus() == Order.Status.OPEN && !o.getFromUser().equals(user));
+                return respondWithFilteredOrders(o -> o.getStatus() == Order.Status.OPEN && !o.getFromUser().equals(username));
             case "claimed":
-                return respondWithFilteredOrders(o -> o.getStatus() == Order.Status.ASSIGNED && o.getAssignee().equals(user));
+                return respondWithFilteredOrders(o -> o.getStatus() == Order.Status.ASSIGNED && o.getAssignee().equals(username));
             default:
                 return ResponseEntity.badRequest().body(new ErrorResponse("Filter must be one of 'own', 'open', 'claimed'"));
         }

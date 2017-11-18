@@ -11,16 +11,16 @@ public class Order {
     }
 
     private final MenuItem item;
-    private final User fromUser;
-    private User assignee = null;
+    private final String fromUser;
+    private String assignee = null;
     private Status status = Status.OPEN;
 
-    public Order(MenuItem item, User fromUser) {
+    public Order(MenuItem item, String fromUser) {
         this.item = item;
         this.fromUser = fromUser;
     }
 
-    public void setAssignee(User user) {
+    public void setAssignee(String user) {
         if (status != Status.OPEN) throw new IllegalStateException();
         this.assignee = user;
         this.status = Status.ASSIGNED;
@@ -38,11 +38,11 @@ public class Order {
         return item;
     }
 
-    public User getFromUser() {
+    public String getFromUser() {
         return fromUser;
     }
 
-    public User getAssignee() {
+    public String getAssignee() {
         return assignee;
     }
 

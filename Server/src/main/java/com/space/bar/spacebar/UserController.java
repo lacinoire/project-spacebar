@@ -3,6 +3,7 @@ package com.space.bar.spacebar;
 import com.space.bar.spacebar.network.ErrorResponse;
 import com.space.bar.spacebar.users.User;
 import com.space.bar.spacebar.users.UserService;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,7 @@ public class UserController {
         } else {
             boolean created = service.createUser(user.get("username"));
             if (created) {
+                LoggerFactory.getLogger(getClass()).info("Created user " + user.get("username"));
                 return ResponseEntity.ok().build();
             } else {
                 return ResponseEntity.badRequest().body(new ErrorResponse("username taken."));
