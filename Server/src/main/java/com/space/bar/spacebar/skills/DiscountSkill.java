@@ -7,8 +7,8 @@ import java.util.function.Function;
 public class DiscountSkill extends Skill {
     private Function<MenuItemView, MenuItemView> map;
 
-    public DiscountSkill(String name, int xpCost, Function<MenuItemView, MenuItemView> effect) {
-        super(name, xpCost);
+    public DiscountSkill(String name, int xpCost, Function<MenuItemView, MenuItemView> effect, Integer... nextSkills) {
+        super(name, xpCost, nextSkills);
         map = effect;
     }
 

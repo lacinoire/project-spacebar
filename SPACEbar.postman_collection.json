@@ -312,6 +312,132 @@
 			]
 		},
 		{
+			"name": "Skills",
+			"description": "",
+			"item": [
+				{
+					"name": "Get available skills",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{host}}/skills?username=qw3ry&filter=available",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"skills"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "qw3ry",
+									"equals": true
+								},
+								{
+									"key": "filter",
+									"value": "available",
+									"equals": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Buy skill",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"qw3ry\",\n\t\"skill\": 1\n}"
+						},
+						"url": {
+							"raw": "{{host}}/skills",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"skills"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get bought skills",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{host}}/skills?username=qw3ry&filter=bought",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"skills"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "qw3ry",
+									"equals": true
+								},
+								{
+									"key": "filter",
+									"value": "bought",
+									"equals": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all skills",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{host}}/skills?username=qw3ry&filter=all",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"skills"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "qw3ry",
+									"equals": true
+								},
+								{
+									"key": "filter",
+									"value": "all",
+									"equals": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Get Menu",
 			"request": {
 				"method": "GET",

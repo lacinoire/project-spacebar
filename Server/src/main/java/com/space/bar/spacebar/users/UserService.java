@@ -1,21 +1,28 @@
 package com.space.bar.spacebar.users;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
-//@Scope(WebApplicationContext.SCOPE_GLOBAL_SESSION)
 public class UserService {
     private Map<String,User> users = new HashMap<>();
 
     public boolean createUser(String username) {
         if (users.containsKey(username)) return false;
         users.put(username, new User(username));
+        switch (username.toLowerCase()) {
+            case "laci":
+            case "lacinoire":
+            case "qw3ry":
+            case "riecky":
+            case "flakebi":
+            case "kywision":
+                users.get(username).addToXp(5000);
+                break;
+        }
         return true;
     }
 

@@ -1,5 +1,6 @@
 package com.space.bar.spacebar.skills;
 
+import com.space.bar.spacebar.DataSource;
 import com.space.bar.spacebar.users.User;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +14,13 @@ public class SkillService {
     private Set<Skill> allSkills = new HashSet<>();
 
     public SkillService() {
-        addBaseSkill(new DiscountSkill("Discount 20%", 0, i -> {
-            i.setPrice((int)(i.getPrice() * 0.8));
-            return i;
-        }));
+        for (Skill skill : DataSource.getAllSkills()) {
+            if (DataSource.getBasicSkills().contains(skill)) {
+                addBaseSkill(skill);
+            } else {
+                addSkill(skill);
+            }
+        }
     }
 
     public Stream<Skill> getAll() {

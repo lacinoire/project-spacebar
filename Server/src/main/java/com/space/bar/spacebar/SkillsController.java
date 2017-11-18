@@ -28,6 +28,8 @@ public class SkillsController {
                 return ResponseEntity.ok().body(skills.getPurchased(users.getUser(username)).collect(Collectors.toList()));
             case "available":
                 return ResponseEntity.ok().body(skills.getAvailable(users.getUser(username)).collect(Collectors.toList()));
+            case "basic":
+                return ResponseEntity.ok().body(skills.getBasic().collect(Collectors.toList()));
             default:
                 return ResponseEntity.ok().body(skills.getAll().collect(Collectors.toList()));
         }
