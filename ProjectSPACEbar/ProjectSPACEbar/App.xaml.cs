@@ -6,7 +6,7 @@ namespace ProjectSPACEbar
 {
     public partial class App : Application
     {
-        public static IDataStore<Order> DataStore => DependencyService.Get<IDataStore<Order>>() ?? new MockDataStore();
+        public static CloudDataStore DataStore => DependencyService.Get<CloudDataStore>();
 
         public static bool UseMockDataStore = true;
         public static string BackendUrl = "http://vps.flakebi.de:8080";
@@ -22,15 +22,11 @@ namespace ProjectSPACEbar
             OpenOrders = new List<Order>();
             OpenOrders.Add(new Order
             {
-                Id = "1",
-                Text = "TestOrder",
-                Description = "This is for testing.",
+                Id = 1,
             });
             OpenOrders.Add(new Order
             {
-                Id = "2",
-                Text = "TestOrder2",
-                Description = "This is for testing too.",
+                Id = 2,
             });
             Leaderboard = new Leaderboard();
             Leaderboard.Users.Add(new User
@@ -51,10 +47,7 @@ namespace ProjectSPACEbar
                 Name = "Ich",
             };
 
-            if (UseMockDataStore)
-                DependencyService.Register<MockDataStore>();
-            else
-                DependencyService.Register<CloudDataStore>();
+			DependencyService.Register<CloudDataStore>();
 
             MainPage = new NavigationPage(new LoginPage());
 

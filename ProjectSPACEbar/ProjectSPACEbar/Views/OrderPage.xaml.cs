@@ -23,9 +23,7 @@ namespace ProjectSPACEbar
 			var orderList = new List<Order>();
 			orderList.Add(new Order
 			{
-				Id = "1",
-				Text = "TestOrder",
-				Description = "This is for testing.",
+				Id = 1,
 			});
 			OpenOrders = new List<OrderViewModel>();
             OpenOrders.AddRange(orderList.Select(o => new OrderViewModel(o)

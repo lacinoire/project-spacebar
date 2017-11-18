@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace ProjectSPACEbar
 {
@@ -36,42 +37,83 @@ namespace ProjectSPACEbar
 
 	public class LeaderboardEntryResponse
 	{
-
+		public string username;
+		public int totalXp;
+		public int usableXp;
 	}
 
 	public class MenuResponse
 	{
-		IEnumerable<ItemResponse> drinks;
+		public List<ItemResponse> drinks;
 	}
 
 	public class ItemResponse
 	{
-		string content;
-		int id;
-		int price;
-		int size;
-		int xpGain;
+		public string content;
+		public uint id;
+		/// <summary>
+		/// In cent
+		/// </summary>
+		public uint price;
+		/// <summary>
+		/// In milliliter
+		/// </summary>
+		public uint size;
+		public uint xpGain;
+
+		public MenuItem ToMenuItem()
+		{
+			return new MenuItem
+			{
+				id = id,
+				name = content,
+				xp = xpGain,
+				cost = price / 100m,
+				size = size / 1000m,
+			};
+		}
 	}
 
 	public class OrderResponse
 	{
-		int id;
-		bool isClaimed;
-		bool isApproved;
-		bool isFinished;
-		string fromUser;
-		ItemResponse item;
-		string status;
+		public uint id;
+		public bool isClaimed;
+		public bool isApproved;
+		public bool isFinished;
+		public string fromUser;
+		public string assignee;
+		public ItemResponse item;
+
+		public Order ToOrder()
+		{
+			return new Order
+			{
+				Id = id,
+				IsClaimed = isClaimed,
+				IsApproved = isApproved,
+				IsFinished = isFinished,
+				MenuItem = item.ToMenuItem(),
+				Creator = new Lazy<Task<User>>(async () =>
+				{
+					var store = App.DataStore;
+					return await store.GetUser(fromUser);
+				}),
+				Assignee = new Lazy<Task<User>>(async () =>
+				{
+					var store = App.DataStore;
+					return await store.GetUser(assignee);
+				}),
+			};
+		}
 	}
 
 	public class UserResponse
 	{
-		int totalXp;
-		int usableXp;
-		string username;
+		public uint totalXp;
+		public uint usableXp;
+		public string username;
 	}
-
-	// TODO Item, Order class
+	
 	public class CloudDataStore
     {
         HttpClient client;
@@ -95,23 +137,32 @@ namespace ProjectSPACEbar
 				throw new Exception("Creating user was not successful");
 		}
 
-		public async Task<UserResponse> GetUser(string name)
+		public async Task<User> GetUser(string name)
 		{
 			var json = await client.GetStringAsync($"users?username={name}");
 
-			return await Task.Run(() => JsonConvert.DeserializeObject<UserResponse>(json));
+			var response = await Task.Run(() => JsonConvert.DeserializeObject<UserResponse>(json));
+			return new User
+			{
+				EarnedXP = response.totalXp,
+				CurrentXP = response.usableXp,
+				Name = response.username,
+			};
 		}
 		
-		public async Task<MenuResponse> GetMenu(User user)
+		public async Task<Menu> GetMenu(User user)
 		{
 			var json = await client.GetStringAsync($"menu?username={user.Name}");
 
-			return await Task.Run(() => JsonConvert.DeserializeObject<MenuResponse>(json));
+			var response = await Task.Run(() => JsonConvert.DeserializeObject<MenuResponse>(json));
+			var menu = new Menu();
+			menu.Items.AddRange(response.drinks.Select(d => d.ToMenuItem()));
+			return menu;
 		}
 
-		public async Task CreateOrder(User user, int item)
+		public async Task CreateOrder(User user, MenuItem item)
 		{
-			var serializedItem = JsonConvert.SerializeObject(new { username = user.Name, item = item });
+			var serializedItem = JsonConvert.SerializeObject(new { username = user.Name, item = item.id });
 
 			var response = await client.PostAsync($"orders/new",
 				new StringContent(serializedItem, Encoding.UTF8, "application/json"));
@@ -120,11 +171,12 @@ namespace ProjectSPACEbar
 				throw new Exception("Creating order was not successful");
 		}
 
-		public async Task<IEnumerable<OrderResponse>> GetOrders(User user, OrderFilter filter)
+		public async Task<IEnumerable<Order>> GetOrders(User user, OrderFilter filter)
 		{
 			var json = await client.GetStringAsync($"orders?filter={filter.GetFilter()}&username={user.Name}");
 
-			return await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<OrderResponse>>(json));
+			var response = await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<OrderResponse>>(json));
+			return response.Select(o => o.ToOrder());
 		}
 
 		public async Task OrderAction(User user, int order, string action)

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ProjectSPACEbar
 {
@@ -35,5 +37,19 @@ namespace ProjectSPACEbar
             FulfilledOrdersWaitingForConfirmation = new List<Order>();
             Skills = new List<Skill>();
         }
-    }
+
+		public async Task UpdateClaimedOrders()
+		{
+			var store = App.DataStore;
+			ClaimedOrders.Clear();
+			ClaimedOrders.AddRange(await store.GetOrders(this, OrderFilter.Claimed));
+		}
+
+		public async Task UpdateFulfilledOrdersWaitingForConfirmation()
+		{
+			var store = App.DataStore;
+			FulfilledOrdersWaitingForConfirmation.Clear();
+			FulfilledOrdersWaitingForConfirmation.AddRange((await store.GetOrders(this, OrderFilter.Claimed)).Where(o => o.IsFinished && !o.IsApproved));
+		}
+	}
 }

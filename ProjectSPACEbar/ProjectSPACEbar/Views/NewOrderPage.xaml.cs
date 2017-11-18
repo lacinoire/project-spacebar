@@ -14,8 +14,6 @@ namespace ProjectSPACEbar
 
             Item = new Order
             {
-                Text = "Item name",
-                Description = "This is an item description."
             };
 
             BindingContext = this;

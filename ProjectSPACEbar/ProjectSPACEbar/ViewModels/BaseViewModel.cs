@@ -9,8 +9,6 @@ namespace ProjectSPACEbar
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Order> DataStore => DependencyService.Get<IDataStore<Order>>() ?? new MockDataStore();
-
         bool isBusy = false;
         public bool IsBusy
         {

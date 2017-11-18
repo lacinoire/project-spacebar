@@ -7,7 +7,7 @@ namespace ProjectSPACEbar
         public Order Item { get; set; }
         public ItemDetailViewModel(Order item = null)
         {
-            Title = item?.Text;
+            Title = item?.MenuItem?.name;
             Item = item;
         }
     }
