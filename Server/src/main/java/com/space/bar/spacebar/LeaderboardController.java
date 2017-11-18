@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("leaderboard")
@@ -25,9 +27,7 @@ public class LeaderboardController {
 
     @GetMapping
     public ResponseEntity<?> getLeaderboard() {
-        Map<Integer, User> leaderboard = new HashMap<>();
-        AtomicInteger idx = new AtomicInteger(1);
-        userService.getUsers().stream().sorted(Comparator.comparingInt(User::getTotalXp)).forEach(u -> leaderboard.put(idx.incrementAndGet(), u));
+        List<User> leaderboard = userService.getUsers().stream().sorted(Comparator.comparingInt(u -> -u.getTotalXp())).collect(Collectors.toList());
         return ResponseEntity.ok().body(leaderboard);
     }
 }

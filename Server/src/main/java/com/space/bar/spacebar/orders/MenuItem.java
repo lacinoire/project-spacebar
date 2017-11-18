@@ -1,5 +1,8 @@
 package com.space.bar.spacebar.orders;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class MenuItem {
     private static int nextId = 1;
 
@@ -11,6 +14,14 @@ public class MenuItem {
 
     public MenuItem(String content, int size, int price, int xpGain) {
         this.id = nextId++;
+        this.content = content;
+        this.size = size;
+        this.price = price;
+        this.xpGain = xpGain;
+    }
+
+    protected MenuItem(int id, String content, int size, int price, int xpGain) {
+        this.id = id;
         this.content = content;
         this.size = size;
         this.price = price;

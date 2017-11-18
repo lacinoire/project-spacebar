@@ -1,21 +1,16 @@
 package com.space.bar.spacebar.orders;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.*;
 
+@Service
 public class Menu {
-    private static Menu menu = new Menu();
-    public static Menu getMenu() {
-        return menu;
-    }
-
     private final Map<Integer,MenuItem> drinks = new HashMap<>();
 
-    private Menu() {
-        addMenuItem(new MenuItem("Beer", 500, 320, 100));
-        addMenuItem(new MenuItem("Beer", 1000, 610, 200));
-        addMenuItem(new MenuItem("Water", 750, 300, 80));
-        addMenuItem(new MenuItem("Shot", 20, 290, 100));
-        addMenuItem(new MenuItem("Cocktail", 200, 560, 180));
+    @Autowired public Menu(Set<MenuItem> menuItems) {
+        menuItems.forEach(this::addMenuItem);
     }
 
     public Collection<MenuItem> getDrinks() {

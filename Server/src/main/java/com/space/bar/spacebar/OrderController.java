@@ -4,6 +4,8 @@ import com.space.bar.spacebar.network.ErrorResponse;
 import com.space.bar.spacebar.network.ChangeOrderRequest;
 import com.space.bar.spacebar.network.OrderCreationRequest;
 import com.space.bar.spacebar.orders.Menu;
+import com.space.bar.spacebar.orders.MenuItem;
+import com.space.bar.spacebar.orders.MenuView;
 import com.space.bar.spacebar.orders.Order;
 import com.space.bar.spacebar.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,20 +24,23 @@ import java.util.stream.Collectors;
 public class OrderController {
     private final UserService service;
     private final Map<Integer,Order> orders = new HashMap<>();
+    private final Menu menu;
 
     @Autowired
-    public OrderController(UserService service) {
+    public OrderController(UserService service, Menu menu) {
         this.service = service;
+        this.menu = menu;
     }
 
     @PostMapping("new")
     public ResponseEntity<?> createOrder(@RequestBody OrderCreationRequest request) {
         if (service.getUser(request.getUsername()) == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("User not found."));
-        } else if (Menu.getMenu().getMenuItemById(request.getItem()) == null) {
+        } else if (menu.getMenuItemById(request.getItem()) == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Item not found"));
         } else {
-            Order order = new Order(Menu.getMenu().getMenuItemById(request.getItem()), request.getUsername());
+            MenuItem item = new MenuView(service.getUser(request.getUsername()).getSkills()).getMenuItemById(request.getItem());
+            Order order = new Order(item, request.getUsername());
             orders.put(order.getId(), order);
             return ResponseEntity.ok().build();
         }
