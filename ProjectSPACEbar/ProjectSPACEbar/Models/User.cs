@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace ProjectSPACEbar
 {
-    public class User
+    public class User : INotifyPropertyChanged
     {
         public uint EarnedXP { get; set; }
         public uint CurrentXP { get; set; }
@@ -42,7 +44,17 @@ namespace ProjectSPACEbar
             Skills = new List<Skill>();
         }
 
-		public async Task UpdateClaimedOrders()
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        public async Task UpdateClaimedOrders()
 		{
 			var store = App.DataStore;
 			ClaimedOrders.Clear();

@@ -45,7 +45,11 @@ namespace ProjectSPACEbar
                             Title = "My Order",
                             Icon = "hand_cursor.png",
                         };
-                        newOrderPage = new NavigationPage(pending);
+                        newOrderPage = new NavigationPage(pending)
+                        {
+                            Title = "My Order",
+                            Icon = "hand_cursor.png",
+                        };
                         newOrderPage.Navigation.InsertPageBefore(new NewOrderPage(),pending);
                     }
                     else
