@@ -8,30 +8,30 @@ namespace ProjectSPACEbar
 
     public partial class OrderDetailPage : ContentPage
     {
-        ItemDetailViewModel viewModel;
+        Order order;
 
         // Note - The Xamarin.Forms Previewer requires a default, parameterless constructor to render a page.
         public OrderDetailPage()
         {
             InitializeComponent();
 
-            var item = new Order
+            order = new Order
             {
             };
 
-            viewModel = new ItemDetailViewModel(item);
-            BindingContext = viewModel;
+            BindingContext = order;
         }
 
-        public OrderDetailPage(ItemDetailViewModel viewModel)
+        public OrderDetailPage(Order order)
         {
             InitializeComponent();
-
-            BindingContext = this.viewModel = viewModel;
+            BindingContext = this.order = order;
         }
 
         async void OnClaimClicked(object sender, EventArgs e) {
-            await Navigation.PushAsync(new ClaimedOrderPage(viewModel.Item));
+            App.CurrentUser.ClaimedOrders.Insert(0,order);
+            App.OpenOrders.Remove(order);
+            await Navigation.PushAsync(new ClaimedOrderPage(order));
             Navigation.RemovePage(Navigation.NavigationStack[1]);
         }
     }

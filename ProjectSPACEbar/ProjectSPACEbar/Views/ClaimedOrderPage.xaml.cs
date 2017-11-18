@@ -7,16 +7,16 @@ namespace ProjectSPACEbar.Views
 {
     public partial class ClaimedOrderPage : ContentPage
     {
-        public Order CurrentOrder => App.CurrentUser.ClaimedOrders[0];
+        public Order CurrentOrder;
 
         public ClaimedOrderPage(Order order)
         {
             InitializeComponent();
-            App.CurrentUser.ClaimedOrders.Insert(0, order);
+            CurrentOrder = order;
             BindingContext = CurrentOrder;
         }
 
-        async void OnFulfilledClicked()
+        async void OnFulfilledClicked(object sender, EventArgs e)
         {
             App.CurrentUser.FulfilledOrdersWaitingForConfirmation.Add(CurrentOrder);
             App.CurrentUser.ClaimedOrders.Remove(CurrentOrder);

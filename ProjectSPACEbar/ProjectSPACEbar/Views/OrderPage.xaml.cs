@@ -48,14 +48,14 @@ namespace ProjectSPACEbar
             {
                 return;
             }
-            await Navigation.PushAsync(new OrderDetailPage(new ItemDetailViewModel(order)));
+            await Navigation.PushAsync(new OrderDetailPage(order));
             //OrdersListView.SelectedItem = null;
 
         }
 
         async Task DetailsClicked(Order order)
         {
-            await Navigation.PushAsync(new OrderDetailPage(new ItemDetailViewModel(order)));
+            await Navigation.PushAsync(new OrderDetailPage(order));
         }
         //async void AddItem_Clicked(object sender, EventArgs e)
         //{
