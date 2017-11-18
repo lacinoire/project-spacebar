@@ -1,6 +1,6 @@
 package com.space.bar.spacebar.network;
 
-public class OrderApprovement {
+public class ChangeOrderRequest {
     private String username;
     private int order;
 

@@ -1,6 +1,7 @@
 package com.space.bar.spacebar;
 
 import com.space.bar.spacebar.network.ErrorResponse;
+import com.space.bar.spacebar.network.ChangeOrderRequest;
 import com.space.bar.spacebar.network.OrderCreationRequest;
 import com.space.bar.spacebar.orders.Menu;
 import com.space.bar.spacebar.orders.Order;
@@ -10,7 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -19,7 +21,7 @@ import java.util.stream.Collectors;
 @RequestMapping("orders")
 public class OrderController {
     private final UserService service;
-    private final Set<Order> orders = new HashSet<>();
+    private final Map<Integer,Order> orders = new HashMap<>();
 
     @Autowired
     public OrderController(UserService service) {
@@ -33,7 +35,24 @@ public class OrderController {
         } else if (Menu.getMenu().getMenuItemById(request.getItem()) == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Item not found"));
         } else {
-            orders.add(new Order(Menu.getMenu().getMenuItemById(request.getItem()), request.getUsername()));
+            Order order = new Order(Menu.getMenu().getMenuItemById(request.getItem()), request.getUsername());
+            orders.put(order.getId(), order);
+            return ResponseEntity.ok().build();
+        }
+    }
+
+    @PostMapping("claim")
+    public ResponseEntity<?> claimOrder(@RequestBody ChangeOrderRequest orderRequest) {
+        if (service.getUser(orderRequest.getUsername()) == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("User not found."));
+        } else if (!orders.containsKey(orderRequest.getOrder())) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Order not found"));
+        } else if (orders.get(orderRequest.getOrder()).getFromUser().equals(orderRequest.getUsername())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("You cannot claim your own order"));
+        } else if (orders.get(orderRequest.getOrder()).getStatus() != Order.Status.OPEN) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse("Order is not open"));
+        } else {
+            orders.get(orderRequest.getOrder()).setAssignee(orderRequest.getUsername());
             return ResponseEntity.ok().build();
         }
     }
@@ -60,6 +79,6 @@ public class OrderController {
     }
 
     private Set<Order> filterOrders(Predicate<Order> filter) {
-        return orders.stream().filter(filter).collect(Collectors.toSet());
+        return orders.values().stream().filter(filter).collect(Collectors.toSet());
     }
 }

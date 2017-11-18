@@ -3,6 +3,8 @@ package com.space.bar.spacebar.orders;
 import com.space.bar.spacebar.users.User;
 
 public class Order {
+    private static int nextId = 1;
+
     public enum Status {
         OPEN,
         ASSIGNED,
@@ -10,12 +12,14 @@ public class Order {
         APPROVED
     }
 
+    private final int id;
     private final MenuItem item;
     private final String fromUser;
     private String assignee = null;
     private Status status = Status.OPEN;
 
     public Order(MenuItem item, String fromUser) {
+        this.id = nextId++;
         this.item = item;
         this.fromUser = fromUser;
     }
@@ -32,6 +36,10 @@ public class Order {
 
     public void approveOrder() {
         this.status = Status.APPROVED;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public MenuItem getItem() {
