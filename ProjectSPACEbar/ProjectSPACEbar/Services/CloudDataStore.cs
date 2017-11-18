@@ -189,9 +189,9 @@ namespace ProjectSPACEbar
 			return response.Select(o => o.ToOrder());
 		}
 
-		public async Task OrderAction(User user, int order, string action)
+		public async Task OrderAction(User user, Order order, string action)
 		{
-			var serializedItem = JsonConvert.SerializeObject(new { username = user.Name, order = order });
+			var serializedItem = JsonConvert.SerializeObject(new { username = user.Name, order = order.Id });
 
 			var response = await client.PostAsync($"orders/{action}",
 				new StringContent(serializedItem, Encoding.UTF8, "application/json"));
@@ -207,9 +207,9 @@ namespace ProjectSPACEbar
 			return await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<SkillResponse>>(json));
 		}
 
-		public async Task BuySkill(User user, int skill)
+		public async Task BuySkill(User user, Skill skill)
 		{
-			var serializedItem = JsonConvert.SerializeObject(new { username = user.Name, skill = skill });
+			var serializedItem = JsonConvert.SerializeObject(new { username = user.Name, skill = skill.Id });
 
 			var response = await client.PostAsync($"skills",
 				new StringContent(serializedItem, Encoding.UTF8, "application/json"));
