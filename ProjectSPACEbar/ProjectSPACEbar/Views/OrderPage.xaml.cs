@@ -7,19 +7,21 @@ using Xamarin.Forms;
 
 using ProjectSPACEbar.ViewModels;
 using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace ProjectSPACEbar
 {
     public partial class OrderPage : ContentPage
     {
-        public List<OrderViewModel> OpenOrders { get; }
+        public ObservableCollection<OrderViewModel> OpenOrders { get; }
 
         public OrderPage()
         {
             InitializeComponent();
 
             BindingContext = this;
-            OpenOrders = new List<OrderViewModel>();
+            OpenOrders = new ObservableCollection<OrderViewModel>();
+			OrdersListView.ItemsSource = OpenOrders;
 
 			App.OrdersChanged += async () => await Initialize();
 			Initialize();
@@ -39,12 +41,13 @@ namespace ProjectSPACEbar
 			OpenOrders.Clear();
             IEnumerable<Order> orderList = await App.DataStore.GetOrders(App.CurrentUser, OrderFilter.Open);
 
-            OpenOrders.AddRange(orderList.Select(o => new OrderViewModel(o)
-            {
-                OnDetailsClicked = new Command(async () => await DetailsClicked(o)),
-            }));
-            OrdersListView.ItemsSource = OpenOrders;
-			OnPropertyChanged(nameof(OpenOrders));
+			foreach (var o in orderList)
+			{
+				OpenOrders.Add(new OrderViewModel(o)
+				{
+					OnDetailsClicked = new Command(async () => await DetailsClicked(o)),
+				});
+			}
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)

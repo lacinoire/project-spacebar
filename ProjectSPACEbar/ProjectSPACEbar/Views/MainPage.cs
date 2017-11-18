@@ -83,7 +83,10 @@ namespace ProjectSPACEbar
                         {
                             Title = "My Order",
                         };
-                        newOrderPage = new NavigationPage(pending);
+                        newOrderPage = new NavigationPage(pending)
+						{
+							Title = "My Order",
+						};
                         newOrderPage.Navigation.InsertPageBefore(new NewOrderPage(), pending);
                     }
                     else

@@ -4,18 +4,20 @@ using Xamarin.Forms;
 
 namespace ProjectSPACEbar
 {
-    using System.Linq;
+	using System.Collections.ObjectModel;
+	using System.Linq;
     using System.Threading.Tasks;
     using Views;
 
     public partial class NewOrderPage : ContentPage
     {
-        public List<MenuItemViewModel> MenuItems { get; }
+        public ObservableCollection<MenuItemViewModel> MenuItems { get; }
 
         public NewOrderPage()
         {
             InitializeComponent();
-            MenuItems = new List<MenuItemViewModel>();
+            MenuItems = new ObservableCollection<MenuItemViewModel>();
+			Menu.ItemsSource = MenuItems;
             BindingContext = this;
 			App.OrdersChanged += async () => await Initialize();
             Initialize();
@@ -25,12 +27,13 @@ namespace ProjectSPACEbar
         {
 			MenuItems.Clear();
             IEnumerable<MenuItem> menuList = (await App.DataStore.GetMenu(App.CurrentUser)).Items;
-            MenuItems.AddRange(menuList.Select(m => new MenuItemViewModel(m)
-            {
-                OnOrderClicked = new Command(async () => await OrderClicked(m)),
-            }));
-            Menu.ItemsSource = MenuItems;
-			OnPropertyChanged(nameof(MenuItems));
+			foreach (var m in menuList)
+			{
+				MenuItems.Add(new MenuItemViewModel(m)
+				{
+					OnOrderClicked = new Command(async () => await OrderClicked(m)),
+				});
+			}
         }
 
         async Task OrderClicked(MenuItem menuItem)
