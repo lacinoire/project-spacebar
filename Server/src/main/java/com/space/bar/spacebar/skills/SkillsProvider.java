@@ -1,8 +1,7 @@
 package com.space.bar.spacebar.skills;
 
 import com.space.bar.spacebar.StorageWriter;
-import com.space.bar.spacebar.orders.MenuView;
-import org.springframework.context.annotation.Bean;
+import com.space.bar.spacebar.orders.MenuItem;
 
 import javax.annotation.PreDestroy;
 import java.util.HashMap;
@@ -21,7 +20,10 @@ public class SkillsProvider {
 
         Skill other = new DiscountSkill("5% discount on non-alcoholic drinks", 630, item -> item.getContent().equals("Water") ? applyDiscount(0.95f).apply(item) : item);
 
-        Skill bigCocktails = new UnlockSkill("Get access to the BIG cocktails", 999, o -> false);
+        Skill bigCocktails = new UnlockSkill("Get access to the BIG cocktails",999,
+                o -> o instanceof MenuItem
+                        && ((MenuItem) o).getContent().equalsIgnoreCase("Cocktail")
+                        && ((MenuItem) o).getSize() == 1000);
 
         allSkills.put(d1, true);
         allSkills.put(d2, false);
@@ -49,7 +51,7 @@ public class SkillsProvider {
 
     private static DiscountSkill.MappingFunction applyDiscount(float multiplier) {
         return miv -> {
-            miv.setPrice((int)(miv.getPrice() * multiplier));
+            miv.setPrice((int) (miv.getPrice() * multiplier));
             return miv;
         };
     }

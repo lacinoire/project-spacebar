@@ -4,6 +4,7 @@ import com.space.bar.spacebar.network.ErrorResponse;
 import com.space.bar.spacebar.network.ChangeOrderRequest;
 import com.space.bar.spacebar.network.OrderCreationRequest;
 import com.space.bar.spacebar.orders.*;
+import com.space.bar.spacebar.skills.SkillService;
 import com.space.bar.spacebar.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,12 +24,14 @@ public class OrderController {
     private final Map<Integer,Order> orders = new HashMap<>();
     private final Menu menu;
     private final ItemProvider itemProvider;
+    private final SkillService skills;
 
     @Autowired
-    public OrderController(UserService users, Menu menu, ItemProvider itemProvider) {
+    public OrderController(UserService users, Menu menu, ItemProvider itemProvider, SkillService skills) {
         this.users = users;
         this.menu = menu;
         this.itemProvider = itemProvider;
+        this.skills = skills;
     }
 
     @PostMapping("new")
@@ -38,7 +41,7 @@ public class OrderController {
         } else if (menu.getMenuItemById(request.getItem()) == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Item not found"));
         } else {
-            MenuItem item = new MenuView(users.getUser(request.getUsername()).getSkills(), itemProvider.getAllItems()).getMenuItemById(request.getItem());
+            MenuItem item = new MenuView(users.getUser(request.getUsername()).getSkills(), itemProvider.getAllItems(), skills).getMenuItemById(request.getItem());
             Order order = new Order(item, request.getUsername());
             orders.put(order.getId(), order);
             return ResponseEntity.ok().build();

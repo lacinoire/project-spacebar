@@ -36,7 +36,7 @@ public class MenuController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("User not found"));
         }
         User user = users.getUser(username);
-        MenuView view = new MenuView(skills.getPurchased(user).collect(Collectors.toList()), itemProvider.getAllItems());
+        MenuView view = new MenuView(skills.getPurchased(user).collect(Collectors.toList()), itemProvider.getAllItems(), skills);
         return ResponseEntity.ok().body(view);
     }
 }
