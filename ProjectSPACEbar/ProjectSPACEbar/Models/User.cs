@@ -12,6 +12,19 @@ namespace ProjectSPACEbar
 
         public string EarnedXPText => EarnedXP + " XP earned";
 
+        public string SkillsListText
+        {
+            get
+            {
+                string result = Skills[0].ToString();
+                for (int i = 1; i < Skills.Count; i++)
+                {
+                    result += ", " + Skills[i];
+                }
+                return result;
+            }
+        }
+
         public List<Order> ClaimedOrders { get; }
         public List<Order> FulfilledOrdersWaitingForConfirmation { get; }
         

@@ -127,6 +127,21 @@
     <BundleResource Include="Resources\xamarin_logo.png" />
     <BundleResource Include="Resources\xamarin_logo%402x.png" />
     <BundleResource Include="Resources\xamarin_logo%403x.png" />
+    <BundleResource Include="Resources\bar_chart.png" />
+    <BundleResource Include="Resources\bar_chart%402x.png" />
+    <BundleResource Include="Resources\bar_chart%403x.png" />
+    <BundleResource Include="Resources\genius.png" />
+    <BundleResource Include="Resources\genius%402x.png" />
+    <BundleResource Include="Resources\genius%403x.png" />
+    <BundleResource Include="Resources\hand_cursor.png" />
+    <BundleResource Include="Resources\hand_cursor%402x.png" />
+    <BundleResource Include="Resources\hand_cursor%403x.png" />
+    <BundleResource Include="Resources\list.png" />
+    <BundleResource Include="Resources\list%402x.png" />
+    <BundleResource Include="Resources\list%403x.png" />
+    <BundleResource Include="Resources\user_male.png" />
+    <BundleResource Include="Resources\user_male%402x.png" />
+    <BundleResource Include="Resources\user_male%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

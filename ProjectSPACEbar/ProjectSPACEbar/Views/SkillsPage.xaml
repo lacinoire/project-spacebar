@@ -20,12 +20,14 @@
                                 LineBreakMode="NoWrap"
                                 Style="{DynamicResource ListItemTextStyle}"
                                 FontSize="16"
+                                HorizontalOptions="StartAndExpand"
                                 YAlign="Center"/>
                             <Label
                                 Text="{Binding XPCostText}"
                                 LineBreakMode="NoWrap"
                                 Style="{DynamicResource ListItemDetailTextStyle}"
                                 YAlign="Center"
+                                HorizontalOptions="End"
                                 FontSize="13" />
                         </StackLayout>
                     </ViewCell>

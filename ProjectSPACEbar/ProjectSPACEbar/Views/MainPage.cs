@@ -18,28 +18,28 @@ namespace ProjectSPACEbar
                     orderPage = new NavigationPage(new OrderPage())
                     {
                         Title = "Orders",
-                        Icon = "tab_feed.png",
+                        Icon = "list.png",
                     };
-                    aboutPage = new NavigationPage(new AboutPage())
+                    aboutPage = new NavigationPage(new ProfilePage())
                     {
-                        Title = "About",
-                        Icon = "tab_about.png",
+                        Title = "Profile",
+                        Icon = "user_male.png",
                     };
                     leaderboardPage = new NavigationPage(new LeaderboardPage(App.Leaderboard))
                     {
                         Title = "Leaderboard",
-                        Icon = "",
+                        Icon = "bar_chart.png",
                         
                     };
                     newOrderPage = new NavigationPage(new NewOrderPage())
                     {
                         Title = "New Order",
-                        Icon = "",
+                        Icon = "hand_cursor.png",
                     };
                     skillsPage = new NavigationPage(new SkillsPage())
                     {
                         Title = "Skills",
-                        Icon = "",
+                        Icon = "genius.png",
                     };
 
                     break;
@@ -48,9 +48,9 @@ namespace ProjectSPACEbar
                     {
                         Title = "Orders",
                     };
-                    aboutPage = new AboutPage()
+                    aboutPage = new ProfilePage()
                     {
-                        Title = "About",
+                        Title = "Profile",
                     };
                     leaderboardPage = new LeaderboardPage(App.Leaderboard)
                     {

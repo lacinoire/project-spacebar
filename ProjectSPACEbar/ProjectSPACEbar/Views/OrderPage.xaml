@@ -30,7 +30,8 @@
                                 Padding="10">
                                 <StackLayout
                                     Padding="10"
-                                    Orientation="Vertical">
+                                    Orientation="Vertical"
+                                    HorizontalOptions="StartAndExpand">
                                     <Label
                                         Text="{Binding Order.Text}"
                                         LineBreakMode="NoWrap"
