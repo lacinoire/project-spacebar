@@ -13,6 +13,7 @@ namespace ProjectSPACEbar.Views
         public SkillsPage()
         {
             InitializeComponent();
+			App.OrdersChanged += async () => await Initialize();
             Initialize();
         }
 
@@ -30,7 +31,7 @@ namespace ProjectSPACEbar.Views
                 return;
             }
             await App.DataStore.BuySkill(App.CurrentUser, boughtSkill);
-            // TODO Update changed Data
+			App.NotifyAll();
             SkillsList.SelectedItem = null;
         }
     }

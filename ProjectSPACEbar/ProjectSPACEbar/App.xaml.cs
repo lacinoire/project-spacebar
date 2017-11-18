@@ -6,39 +6,29 @@ namespace ProjectSPACEbar
 {
     public partial class App : Application
     {
+		public delegate void ChangedDelegate();
+
         public static CloudDataStore DataStore => DependencyService.Get<CloudDataStore>();
 
-        public static bool UseMockDataStore = true;
+		public static event ChangedDelegate AllChanged;
+		public static event ChangedDelegate OrdersChanged;
+
+		public static bool UseMockDataStore = true;
         public static string BackendUrl = "http://vps.flakebi.de:8080";
         public static User CurrentUser { get; set; }
-
-        public static List<Order> OpenOrders { get; set; }
+		
         public static Leaderboard Leaderboard { get; set; }
 
-        public App()
+		public static void NotifyAll()
+		{
+			AllChanged?.Invoke();
+			OrdersChanged?.Invoke();
+		}
+		public static void NotifyOrders() => OrdersChanged?.Invoke();
+
+		public App()
         {
             InitializeComponent();
-
-            OpenOrders = new List<Order>();
-            OpenOrders.Add(new Order
-            {
-                Id = 1,
-            });
-            OpenOrders.Add(new Order
-            {
-                Id = 2,
-            });
-            Leaderboard = new Leaderboard();
-            Leaderboard.Users.Add(new User
-            {
-                Name = "Typ1",
-                EarnedXP = 2035,
-            });
-            Leaderboard.Users.Add(new User
-            {
-                Name = "Typ6",
-                EarnedXP = 739,
-            });
 
             CurrentUser = new User()
             {
@@ -50,7 +40,6 @@ namespace ProjectSPACEbar
 			DependencyService.Register<CloudDataStore>();
 
             MainPage = new NavigationPage(new LoginPage());
-
         }
     }
 }

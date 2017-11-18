@@ -12,7 +12,7 @@ namespace ProjectSPACEbar
 {
     public partial class OrderPage : ContentPage
     {
-        public List<OrderViewModel> OpenOrders { get; }//App.OpenOrders;
+        public List<OrderViewModel> OpenOrders { get; }
 
         public OrderPage()
         {
@@ -20,8 +20,9 @@ namespace ProjectSPACEbar
 
             BindingContext = this;
             OpenOrders = new List<OrderViewModel>();
-            Initialize();
-            //OrdersListView.BindingContext = this;
+
+			App.OrdersChanged += async () => await Initialize();
+			Initialize();
 
             //LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
@@ -48,9 +49,7 @@ namespace ProjectSPACEbar
         {
             var order = args.SelectedItem as Order;
             if (order == null)
-            {
                 return;
-            }
             await Navigation.PushAsync(new OrderDetailPage(order));
             //OrdersListView.SelectedItem = null;
         }

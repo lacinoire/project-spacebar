@@ -15,9 +15,7 @@ namespace ProjectSPACEbar
         {
             InitializeComponent();
 
-            order = new Order
-            {
-            };
+            order = new Order();
 
             BindingContext = order;
         }
@@ -30,6 +28,7 @@ namespace ProjectSPACEbar
 
         async void OnClaimClicked(object sender, EventArgs e) {
             await App.DataStore.OrderAction(App.CurrentUser, order, "claim");
+			App.NotifyOrders();
             await Navigation.PushAsync(new ClaimedOrderPage(order));
             Navigation.RemovePage(Navigation.NavigationStack[1]);
         }

@@ -12,6 +12,11 @@ namespace ProjectSPACEbar
         {
             InitializeComponent();
             BindingContext = CurrentUser;
+			App.OrdersChanged += async () =>
+			{
+				App.CurrentUser = await App.DataStore.GetUser(App.CurrentUser.Name);
+				OnPropertyChanged("CurrentUser");
+			};
         }
     }
 }

@@ -249,7 +249,7 @@ namespace ProjectSPACEbar
 
 			var response = await Task.Run(() => JsonConvert.DeserializeObject<List<SkillResponse>>(json));
 
-			var dict = new Dictionary<uint, Skill>(response.Select(r => new KeyValuePair<uint, Skill>(r.id, r.ToSkill())));
+			var dict = response.Select(r => r.ToSkill()).ToDictionary(s => s.Id);
 
 			// Set children relation
 			foreach (var r in response)
