@@ -36,6 +36,7 @@ namespace ProjectSPACEbar
 
         async Task Initialize()
         {
+			OpenOrders.Clear();
             IEnumerable<Order> orderList = await App.DataStore.GetOrders(App.CurrentUser, OrderFilter.Open);
 
             OpenOrders.AddRange(orderList.Select(o => new OrderViewModel(o)
@@ -43,6 +44,7 @@ namespace ProjectSPACEbar
                 OnDetailsClicked = new Command(async () => await DetailsClicked(o)),
             }));
             OrdersListView.ItemsSource = OpenOrders;
+			OnPropertyChanged(nameof(OpenOrders));
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)

@@ -20,6 +20,7 @@ namespace ProjectSPACEbar.Views
         async void OnConfirmClicked(object sender, EventArgs e)
         {
             await App.DataStore.OrderAction(App.CurrentUser, PendingOrder, "approve");
+			App.NotifyOrders();
             await Navigation.PopAsync(true);
         }
     }
