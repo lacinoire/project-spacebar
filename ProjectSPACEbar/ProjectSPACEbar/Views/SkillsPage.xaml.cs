@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ProjectSPACEbar.Views
@@ -11,21 +12,24 @@ namespace ProjectSPACEbar.Views
 
         public SkillsPage()
         {
-            InitializeComponent();
-            avaliableSkills = App.DataStore;
+            Initialize();
+        }
+
+        async Task Initialize()
+        {
+            avaliableSkills = new ObservableCollection<Skill>(await App.DataStore.GetSkills(App.CurrentUser, SkillsFilter.Available));
             SkillsList.ItemsSource = avaliableSkills;
             SkillsList.ItemSelected += OnItemSelected;
         }
 
-        async void OnItemSelected(object sender, SelectedItemChangedEventArgs args) {
+        async Task OnItemSelected(object sender, SelectedItemChangedEventArgs args) {
             var boughtSkill = args.SelectedItem as Skill;
             if (boughtSkill == null || App.CurrentUser.CurrentXP < boughtSkill.XPcost)
             {
                 return;
             }
-            App.CurrentUser.CurrentXP = App.CurrentUser.CurrentXP - boughtSkill.XPcost;
-            App.CurrentUser.Skills.Add(boughtSkill);
-            avaliableSkills.Remove(boughtSkill);
+            await App.DataStore.BuySkill(App.CurrentUser, boughtSkill);
+            // TODO Update changed Data
             SkillsList.SelectedItem = null;
         }
     }

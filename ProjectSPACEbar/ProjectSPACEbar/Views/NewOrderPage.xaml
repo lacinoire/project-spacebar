@@ -31,7 +31,7 @@
                                 </StackLayout>
                                 <Button
                                     Text="Details"
-                                    Command="{Binding OnDetailsClicked}"/>
+                                    Command="{Binding OnOrderClicked}"/>
                                     <!--CommandParameter="{Binding Order}"
                                     Clicked="DetailsClicked"/>-->
                             </StackLayout>
