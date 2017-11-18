@@ -9,13 +9,14 @@ namespace ProjectSPACEbar
 {
     public partial class OrderPage : ContentPage
     {
-        List<Order> OpenOrders { get; }//App.OpenOrders;
+        public List<Order> OpenOrders { get; }//App.OpenOrders;
 
         public OrderPage()
         {
             InitializeComponent();
 
             BindingContext = this;
+            //OrdersListView.BindingContext = this;
             OpenOrders = new List<Order>();
             OpenOrders.Add(new Order
             {
@@ -23,6 +24,7 @@ namespace ProjectSPACEbar
                 Text = "TestOrder",
                 Description = "This is for testing.",
             });
+            OrdersListView.ItemsSource = OpenOrders;
              //LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
             //MessagingCenter.Subscribe<NewOrderPage, Order>(this, "AddItem", async (obj, item) =>
@@ -41,13 +43,13 @@ namespace ProjectSPACEbar
                 return;
             }
             await Navigation.PushAsync(new OrderDetailPage(new ItemDetailViewModel(order)));
-            OrdersListView.SelectedItem = null;
+            //OrdersListView.SelectedItem = null;
 
         }
 
-        async void OnDetailsClicked(object parameter)
+        async void DetailsClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new OrderDetailPage(new ItemDetailViewModel((Order)parameter)));
+            await Navigation.PushAsync(new OrderDetailPage(new ItemDetailViewModel(((Order)sender))));
         }
         //async void AddItem_Clicked(object sender, EventArgs e)
         //{

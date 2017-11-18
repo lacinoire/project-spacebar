@@ -14,10 +14,9 @@
         <StackLayout>
             <ListView
                 x:Name="OrdersListView"
-                ItemsSource="{Binding OpenOrders}"
-                VerticalOptions="FillAndExpand"
-                ItemSelected="OnItemSelected">
-                <!--HasUnevenRows="true"
+                VerticalOptions="FillAndExpand">
+                <!--ItemSelected="OnItemSelected"
+                HasUnevenRows="true"
                 RefreshCommand="{Binding LoadItemsCommand}"
                 IsPullToRefreshEnabled="true"
                 IsRefreshing="{Binding IsBusy, Mode=OneWay}"
@@ -25,12 +24,12 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <!--<StackLayout
+                            <StackLayout
                                 Orientation="Horizontal"
-                                Padding="10">-->
+                                Padding="10">
                                 <StackLayout
-                                    Padding="10">
-                                    <!-- Orientation="Vertical"-->
+                                    Padding="10"
+                                    Orientation="Vertical">
                                     <Label
                                         Text="{Binding Text}"
                                         LineBreakMode="NoWrap"
@@ -42,12 +41,12 @@
                                         Style="{DynamicResource ListItemDetailTextStyle}"
                                         FontSize="13" />
                                 </StackLayout>
-                                <!--<Button
+                                <Button
                                     Text="Details"
-                                    Clicked="DetailsClicked"
-                                    Command="{Binding OnDetailsClicked}"
-                                    CommandParameter="{Binding}" />-->
-                            <!--</StackLayout>-->
+                                    Clicked="DetailsClicked"/>
+                                    <!--Command="{Binding OnDetailsClicked}"
+                                    CommandParameter="{Binding}" -->
+                            </StackLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
