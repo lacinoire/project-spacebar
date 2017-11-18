@@ -5,18 +5,29 @@ import com.space.bar.spacebar.users.User;
 public class Order {
     private static int nextId = 1;
 
-    public enum Status {
-        OPEN,
-        ASSIGNED,
-        FINISHED,
-        APPROVED
+    public class Status {
+        private boolean isClaimed = false;
+        private boolean isFinished = false;
+        private boolean isApproved = false;
+
+        public boolean isFinished() {
+            return isFinished;
+        }
+
+        public boolean isApproved() {
+            return isApproved;
+        }
+
+        public boolean isClaimed() {
+            return isClaimed;
+        }
     }
 
     private final int id;
     private final MenuItem item;
     private final String fromUser;
     private String assignee = null;
-    private Status status = Status.OPEN;
+    private Status status = new Status();
 
     public Order(MenuItem item, String fromUser) {
         this.id = nextId++;
@@ -25,17 +36,19 @@ public class Order {
     }
 
     public void setAssignee(String user) {
-        if (status != Status.OPEN) throw new IllegalStateException();
+        if (status.isClaimed) throw new IllegalStateException();
         this.assignee = user;
-        this.status = Status.ASSIGNED;
+        this.status.isClaimed = true;
     }
 
     public void finishOrder() {
-        this.status = Status.FINISHED;
+        if (!status.isClaimed || status.isFinished) throw new IllegalStateException();
+        this.status.isFinished = true;
     }
 
     public void approveOrder() {
-        this.status = Status.APPROVED;
+        if (!status.isClaimed || status.isApproved) throw new IllegalStateException();
+        this.status.isApproved = true;
     }
 
     public int getId() {

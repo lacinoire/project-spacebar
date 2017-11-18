@@ -49,7 +49,7 @@ public class OrderController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Order not found"));
         } else if (orders.get(orderRequest.getOrder()).getFromUser().equals(orderRequest.getUsername())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("You cannot claim your own order"));
-        } else if (orders.get(orderRequest.getOrder()).getStatus() != Order.Status.OPEN) {
+        } else if (orders.get(orderRequest.getOrder()).getStatus().isClaimed()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse("Order is not open"));
         } else {
             orders.get(orderRequest.getOrder()).setAssignee(orderRequest.getUsername());
@@ -66,9 +66,9 @@ public class OrderController {
             case "own":
                 return respondWithFilteredOrders(o -> o.getFromUser().equals(username));
             case "open":
-                return respondWithFilteredOrders(o -> o.getStatus() == Order.Status.OPEN && !o.getFromUser().equals(username));
+                return respondWithFilteredOrders(o -> !o.getStatus().isClaimed() && !o.getFromUser().equals(username));
             case "claimed":
-                return respondWithFilteredOrders(o -> o.getStatus() == Order.Status.ASSIGNED && o.getAssignee().equals(username));
+                return respondWithFilteredOrders(o -> o.getStatus().isClaimed() && o.getAssignee().equals(username));
             default:
                 return ResponseEntity.badRequest().body(new ErrorResponse("Filter must be one of 'own', 'open', 'claimed'"));
         }
