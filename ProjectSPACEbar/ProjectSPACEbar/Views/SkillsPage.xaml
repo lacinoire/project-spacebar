@@ -3,8 +3,34 @@
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	x:Class="ProjectSPACEbar.Views.SkillsPage"
-    Title="Skills"
+    Title="Avaliable Skills"
     x:Name="SkillsPage">
 	<ContentPage.Content>
+        <ListView
+            x:Name="SkillsList"
+            VerticalOptions="FillAndExpand">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout
+                            Padding="5"
+                            Orientation="Horizontal">
+                            <Label
+                                Text="{Binding Name}"
+                                LineBreakMode="NoWrap"
+                                Style="{DynamicResource ListItemTextStyle}"
+                                FontSize="16"
+                                YAlign="Center"/>
+                            <Label
+                                Text="{Binding XPCostText}"
+                                LineBreakMode="NoWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}"
+                                YAlign="Center"
+                                FontSize="13" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+           </ListView.ItemTemplate>
+        </ListView>
 	</ContentPage.Content>
 </ContentPage>

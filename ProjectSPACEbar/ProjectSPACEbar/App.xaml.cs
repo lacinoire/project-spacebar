@@ -44,6 +44,13 @@ namespace ProjectSPACEbar
                 EarnedXP = 739,
             });
 
+            CurrentUser = new User()
+            {
+                EarnedXP = 5000,
+                CurrentXP = 2157,
+                Name = "Ich",
+            };
+
             if (UseMockDataStore)
                 DependencyService.Register<MockDataStore>();
             else

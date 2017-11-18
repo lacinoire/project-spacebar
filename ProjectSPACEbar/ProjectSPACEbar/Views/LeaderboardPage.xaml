@@ -7,22 +7,25 @@
 	<ContentPage.Content>
         <ListView
             x:Name="LeaderboardList"
-            VerticalOptions="FillAndExpand">
+            VerticalOptions="FillAndExpand"
+            HasUnevenRows="true">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout
-                            Padding="10"
-                            Orientation="Horizontal">
+                            Padding="5"
+                            Orientation="Horizontal"
+                            HeightRequest="20">
                             <Label
                                 Text="{Binding Name}"
                                 LineBreakMode="NoWrap"
                                 Style="{DynamicResource ListItemTextStyle}"
                                 FontSize="16" />
                             <Label
-                                Text="{Binding EarnedXP}"
+                                Text="{Binding EarnedXPText}"
                                 LineBreakMode="NoWrap"
                                 Style="{DynamicResource ListItemDetailTextStyle}"
+                                YAlign="Center"
                                 FontSize="13" />
                         </StackLayout>
                     </ViewCell>

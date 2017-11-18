@@ -8,6 +8,9 @@ namespace ProjectSPACEbar
         public uint EarnedXP { get; set; }
         public uint CurrentXP { get; set; }
         public string Name { get; set; }
+        public List<Skill> Skills { get; }
+
+        public string EarnedXPText => EarnedXP + " XP earned";
 
         public List<Order> ClaimedOrders { get; }
         public List<Order> FulfilledOrdersWaitingForConfirmation { get; }
@@ -17,6 +20,7 @@ namespace ProjectSPACEbar
         {
             ClaimedOrders = new List<Order>();
             FulfilledOrdersWaitingForConfirmation = new List<Order>();
+            Skills = new List<Skill>();
         }
     }
 }
