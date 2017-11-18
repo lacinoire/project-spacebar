@@ -172,7 +172,8 @@ namespace ProjectSPACEbar
 				new StringContent(serializedItem, Encoding.UTF8, "application/json"));
 
 			if (!response.IsSuccessStatusCode)
-				throw new Exception("Creating user was not successful");
+				throw new Exception(string.Format("Creating user was not successful ({0}): {1}",
+					response.StatusCode, response.Content));
 		}
 
 		public async Task<User> GetUser(string name)
@@ -206,7 +207,8 @@ namespace ProjectSPACEbar
 				new StringContent(serializedItem, Encoding.UTF8, "application/json"));
 
 			if (!response.IsSuccessStatusCode)
-				throw new Exception("Creating order was not successful");
+				throw new Exception(string.Format("Creating order was not successful ({0}): {1}",
+					response.StatusCode, response.Content));
 		}
 
 		public async Task<IEnumerable<Order>> GetOrders(User user, OrderFilter filter)
@@ -225,7 +227,8 @@ namespace ProjectSPACEbar
 				new StringContent(serializedItem, Encoding.UTF8, "application/json"));
 
 			if (!response.IsSuccessStatusCode)
-				throw new Exception("Changing order was not successful");
+				throw new Exception(string.Format("Changing order was not successful ({0}): {1}",
+					response.StatusCode, response.Content));
 		}
 
 		/// <summary>
@@ -249,7 +252,7 @@ namespace ProjectSPACEbar
 
 			var response = await Task.Run(() => JsonConvert.DeserializeObject<List<SkillResponse>>(json));
 
-			var dict = new Dictionary<uint, Skill>(response.Select(r => new KeyValuePair<uint, Skill>(r.id, r.ToSkill())));
+			var dict = response.Select(r => r.ToSkill()).ToDictionary(s => s.Id);
 
 			// Set children relation
 			foreach (var r in response)
@@ -274,7 +277,8 @@ namespace ProjectSPACEbar
 				new StringContent(serializedItem, Encoding.UTF8, "application/json"));
 
 			if (!response.IsSuccessStatusCode)
-				throw new Exception("Buying skill was not successful");
+				throw new Exception(string.Format("Buying skill was not successful ({0}): {1}",
+					response.StatusCode, response.Content));
 		}
 
 		public async Task<Leaderboard> GetLeaderboard()

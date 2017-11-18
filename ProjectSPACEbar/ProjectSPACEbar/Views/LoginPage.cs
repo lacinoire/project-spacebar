@@ -39,8 +39,23 @@ namespace ProjectSPACEbar
                 FontSize = 20,
             };
             login.Clicked += async (sender, e) => {
-                await App.DataStore.RegisterUser(entry.Text);
-                App.CurrentUser = await App.DataStore.GetUser(entry.Text);
+				try
+				{
+					await App.DataStore.RegisterUser(entry.Text);
+				}
+				catch
+				{
+					// Registering failed, so maybe we are already registered
+				}
+				try
+				{
+					App.CurrentUser = await App.DataStore.GetUser(entry.Text);
+				}
+				catch
+				{
+					// TODO Display error
+					return;
+				}
 
                 if (Device.RuntimePlatform == Device.iOS)
                     App.Current.MainPage = new MainPage();

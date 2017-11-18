@@ -10,7 +10,7 @@ namespace ProjectSPACEbar
         public uint EarnedXP { get; set; }
         public uint CurrentXP { get; set; }
         public string Name { get; set; }
-        public List<Skill> Skills { get; }
+        public List<Skill> Skills { get; set; }
 
         public string EarnedXPText => EarnedXP + " XP earned";
 
@@ -18,12 +18,16 @@ namespace ProjectSPACEbar
         {
             get
             {
-                string result = Skills[0].ToString();
-                for (int i = 1; i < Skills.Count; i++)
+                if (Skills.Any())
                 {
-                    result += ", " + Skills[i];
+                    string result = Skills[0].ToString();
+                    for (int i = 1; i < Skills.Count; i++)
+                    {
+                        result += ", " + Skills[i];
+                    }
+                    return result;
                 }
-                return result;
+                return "";
             }
         }
 

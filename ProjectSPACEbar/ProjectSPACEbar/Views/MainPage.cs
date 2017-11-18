@@ -1,14 +1,20 @@
 ﻿using System;
-
+using System.Linq;
 using Xamarin.Forms;
 
 namespace ProjectSPACEbar
 {
+    using System.Threading.Tasks;
     using Views;
 
     public class MainPage : TabbedPage
     {
         public MainPage()
+        {
+            Initialize();
+        }
+
+        async Task Initialize()
         {
             Page orderPage, aboutPage, leaderboardPage, newOrderPage, skillsPage = null;
 
@@ -29,13 +35,27 @@ namespace ProjectSPACEbar
                     {
                         Title = "Leaderboard",
                         Icon = "bar_chart.png",
-                        
+
                     };
-                    newOrderPage = new NavigationPage(new NewOrderPage())
+                    var orders = await App.DataStore.GetOrders(App.CurrentUser, OrderFilter.Own);
+                    if (orders.Any())
                     {
-                        Title = "New Order",
-                        Icon = "hand_cursor.png",
-                    };
+                        Page pending = new PendingOrderPage(orders.First())
+                        {
+                            Title = "My Order",
+                            Icon = "hand_cursor.png",
+                        };
+                        newOrderPage = new NavigationPage(pending);
+                        newOrderPage.Navigation.InsertPageBefore(new NewOrderPage(),pending);
+                    }
+                    else
+                    {
+                        newOrderPage = new NavigationPage(new NewOrderPage())
+                        {
+                            Title = "My Order",
+                            Icon = "hand_cursor.png",
+                        };
+                    }
                     skillsPage = new NavigationPage(new SkillsPage())
                     {
                         Title = "Skills",
@@ -56,10 +76,26 @@ namespace ProjectSPACEbar
                     {
                         Title = "Leaderboard",
                     };
-                    newOrderPage = new NewOrderPage()
+                    var orders2 = await App.DataStore.GetOrders(App.CurrentUser, OrderFilter.Own);
+                    if (orders2.Any())
                     {
-                        Title = "New Order",
-                    };
+                        Page pending = new PendingOrderPage(orders2.First())
+                        {
+                            Title = "My Order",
+                        };
+                        newOrderPage = new NavigationPage(pending)
+						{
+							Title = "My Order",
+						};
+                        newOrderPage.Navigation.InsertPageBefore(new NewOrderPage(), pending);
+                    }
+                    else
+                    {
+                        newOrderPage = new NewOrderPage()
+                        {
+                            Title = "My Order",
+                        };
+                    }
                     skillsPage = new SkillsPage()
                     {
                         Title = "Skills",

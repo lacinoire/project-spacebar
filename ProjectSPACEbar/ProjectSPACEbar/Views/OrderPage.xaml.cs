@@ -7,21 +7,24 @@ using Xamarin.Forms;
 
 using ProjectSPACEbar.ViewModels;
 using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace ProjectSPACEbar
 {
     public partial class OrderPage : ContentPage
     {
-        public List<OrderViewModel> OpenOrders { get; }//App.OpenOrders;
+        public ObservableCollection<OrderViewModel> OpenOrders { get; }
 
         public OrderPage()
         {
             InitializeComponent();
 
             BindingContext = this;
-            OpenOrders = new List<OrderViewModel>();
-            Initialize();
-            //OrdersListView.BindingContext = this;
+            OpenOrders = new ObservableCollection<OrderViewModel>();
+			OrdersListView.ItemsSource = OpenOrders;
+
+			App.OrdersChanged += async () => await Initialize();
+			Initialize();
 
             //LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
@@ -35,21 +38,23 @@ namespace ProjectSPACEbar
 
         async Task Initialize()
         {
+			OpenOrders.Clear();
             IEnumerable<Order> orderList = await App.DataStore.GetOrders(App.CurrentUser, OrderFilter.Open);
 
-            OpenOrders.AddRange(orderList.Select(o => new OrderViewModel(o)
-            {
-                OnDetailsClicked = new Command(async () => await DetailsClicked(o)),
-            }));
-            OrdersListView.ItemsSource = OpenOrders;
+			foreach (var o in orderList)
+			{
+				OpenOrders.Add(new OrderViewModel(o)
+				{
+					OnDetailsClicked = new Command(async () => await DetailsClicked(o)),
+				});
+			}
         }
+
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
             var order = args.SelectedItem as Order;
             if (order == null)
-            {
                 return;
-            }
             await Navigation.PushAsync(new OrderDetailPage(order));
             //OrdersListView.SelectedItem = null;
         }

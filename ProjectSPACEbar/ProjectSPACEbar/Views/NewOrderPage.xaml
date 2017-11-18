@@ -3,17 +3,18 @@
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	x:Class="ProjectSPACEbar.NewOrderPage"
-	Title="Menu">
+	Title="My Order">
 	<ContentPage.Content>
 		<ListView
             x:Name="Menu"
-            VerticalOptions="FillAndExpand">
+            VerticalOptions="FillAndExpand"
+            HasUnevenRows="true">
             <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout
                                 Orientation="Horizontal"
-                                Padding="10">
+                                Padding="5,5,15,5">
                                 <StackLayout
                                     Padding="10"
                                     Orientation="Vertical"
@@ -30,7 +31,7 @@
                                         FontSize="13" />
                                 </StackLayout>
                                 <Button
-                                    Text="Details"
+                                    Text="Order this"
                                     Command="{Binding OnOrderClicked}"/>
                                     <!--CommandParameter="{Binding Order}"
                                     Clicked="DetailsClicked"/>-->

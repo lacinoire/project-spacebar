@@ -18,7 +18,15 @@ namespace ProjectSPACEbar.Views
 
         async void OnFulfilledClicked(object sender, EventArgs e)
         {
-            await App.DataStore.OrderAction(App.CurrentUser, CurrentOrder, "finish");
+			try
+			{
+				await App.DataStore.OrderAction(App.CurrentUser, CurrentOrder, "finish");
+			}
+			catch
+			{
+				// TODO Show error toast, otherwise ignore
+			}
+			App.NotifyOrders();
             await Navigation.PopAsync(true);
         }
     }

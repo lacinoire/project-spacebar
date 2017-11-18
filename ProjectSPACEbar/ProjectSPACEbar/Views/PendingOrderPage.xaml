@@ -3,8 +3,20 @@
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	x:Class="ProjectSPACEbar.Views.PendingOrderPage"
-    Title="Pending Order"
-    x:Name="PendingOrderPage">
-	<ContentPage.Content>
-	</ContentPage.Content>
+    Title="My Order"
+    x:Name="PendingOrderPage"
+    NavigationPage.HasBackButton="False">
+    <StackLayout
+        Spacing="20"
+        Padding="15">
+        <Label
+            Text="{Binding Text}"
+            FontSize="Medium" />
+        <Label
+            Text="{Binding DetailText}"
+            FontSize="Small" />
+        <Button
+            Text="Order was delivered :D"
+            Clicked="OnConfirmClicked" />
+    </StackLayout>
 </ContentPage>
