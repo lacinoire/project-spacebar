@@ -5,5 +5,29 @@
 	x:Class="ProjectSPACEbar.Views.LeaderboardPage"
     Title="Leaderboard">
 	<ContentPage.Content>
+        <ListView
+            x:Name="LeaderboardList"
+            VerticalOptions="FillAndExpand">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout
+                            Padding="10"
+                            Orientation="Horizontal">
+                            <Label
+                                Text="{Binding Name}"
+                                LineBreakMode="NoWrap"
+                                Style="{DynamicResource ListItemTextStyle}"
+                                FontSize="16" />
+                            <Label
+                                Text="{Binding EarnedXP}"
+                                LineBreakMode="NoWrap"
+                                Style="{DynamicResource ListItemDetailTextStyle}"
+                                FontSize="13" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+           </ListView.ItemTemplate>
+        </ListView>
 	</ContentPage.Content>
 </ContentPage>

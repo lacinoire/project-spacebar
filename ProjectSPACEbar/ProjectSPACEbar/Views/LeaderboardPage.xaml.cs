@@ -7,9 +7,14 @@ namespace ProjectSPACEbar.Views
 {
     public partial class LeaderboardPage : ContentPage
     {
-        public LeaderboardPage()
+        Leaderboard leaderboard;
+
+        public LeaderboardPage(Leaderboard leaderboard)
         {
             InitializeComponent();
+            this.leaderboard = leaderboard;
+            LeaderboardList.ItemsSource = this.leaderboard.Users;
+            BindingContext = this;
         }
     }
 }

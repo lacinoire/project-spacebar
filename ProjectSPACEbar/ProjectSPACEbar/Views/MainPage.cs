@@ -25,10 +25,11 @@ namespace ProjectSPACEbar
                         Title = "About",
                         Icon = "tab_about.png",
                     };
-                    leaderboardPage = new NavigationPage(new LeaderboardPage())
+                    leaderboardPage = new NavigationPage(new LeaderboardPage(App.Leaderboard))
                     {
                         Title = "Leaderboard",
                         Icon = "",
+                        
                     };
                     newOrderPage = new NavigationPage(new NewOrderPage())
                     {
@@ -51,7 +52,7 @@ namespace ProjectSPACEbar
                     {
                         Title = "About",
                     };
-                    leaderboardPage = new LeaderboardPage()
+                    leaderboardPage = new LeaderboardPage(App.Leaderboard)
                     {
                         Title = "Leaderboard",
                     };

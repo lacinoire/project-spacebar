@@ -13,6 +13,7 @@ namespace ProjectSPACEbar
         public static User CurrentUser { get; set; }
 
         public static List<Order> OpenOrders { get; set; }
+        public static Leaderboard Leaderboard { get; set; }
 
         public App()
         {
@@ -30,6 +31,17 @@ namespace ProjectSPACEbar
                 Id = "2",
                 Text = "TestOrder2",
                 Description = "This is for testing too.",
+            });
+            Leaderboard = new Leaderboard();
+            Leaderboard.Users.Add(new User
+            {
+                Name = "Typ1",
+                EarnedXP = 2035,
+            });
+            Leaderboard.Users.Add(new User
+            {
+                Name = "Typ6",
+                EarnedXP = 739,
             });
 
             if (UseMockDataStore)
