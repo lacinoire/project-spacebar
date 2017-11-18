@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,5 +21,9 @@ public class UserService {
 
     public User getUser(String username) {
         return users.get(username);
+    }
+
+    public Collection<User> getUsers() {
+        return users.values();
     }
 }

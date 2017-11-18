@@ -337,6 +337,25 @@
 				"description": ""
 			},
 			"response": []
+		},
+		{
+			"name": "Get Leaderboard",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{host}}/leaderboard",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"leaderboard"
+					]
+				},
+				"description": ""
+			},
+			"response": []
 		}
 	]
 }

@@ -117,6 +117,9 @@ public class OrderController {
     }
 
     private void fulfilOrder(Order order) {
-        // TODO
+        if (!order.getStatus().isApproved() || !order.getStatus().isFinished()) return;
+        service.getUser(order.getFromUser()).addToXp(order.getItem().getXpGain());
+        service.getUser(order.getAssignee()).addToXp(150);
+        orders.remove(order.getId());
     }
 }
