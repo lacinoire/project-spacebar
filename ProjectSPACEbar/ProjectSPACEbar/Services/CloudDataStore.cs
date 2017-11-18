@@ -38,8 +38,18 @@ namespace ProjectSPACEbar
 	public class LeaderboardEntryResponse
 	{
 		public string username;
-		public int totalXp;
-		public int usableXp;
+		public uint totalXp;
+		public uint usableXp;
+
+		public User ToUser()
+		{
+			return new User
+			{
+				EarnedXP = totalXp,
+				CurrentXP = usableXp,
+				Name = username,
+			};
+		}
 	}
 
 	public class MenuResponse
@@ -208,11 +218,15 @@ namespace ProjectSPACEbar
 				throw new Exception("Buying skill was not successful");
 		}
 
-		public async Task<IEnumerable<LeaderboardEntryResponse>> GetLeaderboard()
+		public async Task<Leaderboard> GetLeaderboard()
 		{
 			var json = await client.GetStringAsync($"leaderboard");
 
-			return await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<LeaderboardEntryResponse>>(json));
+			var response = await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<LeaderboardEntryResponse>>(json));
+
+			var leaderboard = new Leaderboard();
+			leaderboard.Users.AddRange(response.Select(e => e.ToUser()));
+			return leaderboard;
 		}
 	}
 }

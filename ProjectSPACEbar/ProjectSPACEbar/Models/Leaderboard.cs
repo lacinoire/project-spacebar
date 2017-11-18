@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ProjectSPACEbar
 {
@@ -8,7 +7,5 @@ namespace ProjectSPACEbar
         public List<User> Users { get; }
 
         public Leaderboard() => Users = new List<User>();
-
     }
-
 }
