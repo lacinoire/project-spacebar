@@ -1,8 +1,6 @@
 package com.space.bar.spacebar.orders;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Menu {
     private static Menu menu = new Menu();
@@ -10,17 +8,29 @@ public class Menu {
         return menu;
     }
 
-    private final Set<MenuItem> drinks = new HashSet<>();
+    private final Map<Integer,MenuItem> drinks = new HashMap<>();
 
     private Menu() {
-        drinks.add(new MenuItem("Beer", 500, 320, 100));
-        drinks.add(new MenuItem("Beer", 1000, 610, 200));
-        drinks.add(new MenuItem("Water", 750, 300, 80));
-        drinks.add(new MenuItem("Shot", 20, 290, 100));
-        drinks.add(new MenuItem("Cocktail", 200, 560, 180));
+        addMenuItem(new MenuItem("Beer", 500, 320, 100));
+        addMenuItem(new MenuItem("Beer", 1000, 610, 200));
+        addMenuItem(new MenuItem("Water", 750, 300, 80));
+        addMenuItem(new MenuItem("Shot", 20, 290, 100));
+        addMenuItem(new MenuItem("Cocktail", 200, 560, 180));
     }
 
-    public Set<MenuItem> getDrinks() {
-        return Collections.unmodifiableSet(drinks);
+    public Collection<MenuItem> getDrinks() {
+        return drinks.values();
+    }
+
+    public MenuItem getMenuItemById(int id) {
+        if (drinks.containsKey(id)) {
+            return drinks.get(id);
+        } else {
+            return null;
+        }
+    }
+
+    private void addMenuItem(MenuItem item) {
+        drinks.put(item.getId(), item);
     }
 }

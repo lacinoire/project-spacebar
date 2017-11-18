@@ -1,4 +1,4 @@
-package com.space.bar.spacebar.responses;
+package com.space.bar.spacebar.network;
 
 public class ErrorResponse {
     private final String error;

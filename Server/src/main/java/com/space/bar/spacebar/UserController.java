@@ -1,8 +1,10 @@
 package com.space.bar.spacebar;
 
-import com.space.bar.spacebar.responses.ErrorResponse;
+import com.space.bar.spacebar.network.ErrorResponse;
+import com.space.bar.spacebar.users.User;
 import com.space.bar.spacebar.users.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +37,10 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<?> getUser(@RequestParam("username") String username) {
-        return ResponseEntity.ok().body(service.getUser(username));
+        User user = service.getUser(username);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("User not found."));
+        }
+        return ResponseEntity.ok().body(user);
     }
 }

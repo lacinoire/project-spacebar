@@ -3,7 +3,7 @@ package com.space.bar.spacebar.users;
 public class User {
     private final String username;
     private int totalXp = 0;
-
+    private int usableXp = 0;
 
     public User(String username) {
         this.username = username;
@@ -17,7 +17,12 @@ public class User {
         return totalXp;
     }
 
+    public int getUsableXp() {
+        return usableXp;
+    }
+
     public int addToXp(int add) {
+        usableXp += add;
         return totalXp += add;
     }
 

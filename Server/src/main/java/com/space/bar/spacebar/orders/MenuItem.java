@@ -36,4 +36,17 @@ public class MenuItem {
     public int getXpGain() {
         return xpGain;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MenuItem menuItem = (MenuItem) o;
+        return id == menuItem.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
 }
