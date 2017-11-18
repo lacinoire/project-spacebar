@@ -38,7 +38,7 @@
                                         Style="{DynamicResource ListItemTextStyle}"
                                         FontSize="16" />
                                     <Label
-                                        Text="{Binding Order.Description}"
+                                        Text="{Binding Order.DetailText}"
                                         LineBreakMode="NoWrap"
                                         Style="{DynamicResource ListItemDetailTextStyle}"
                                         FontSize="13" />

@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ProjectSPACEbar.Views
 {
     public partial class LeaderboardPage : ContentPage
     {
-        Leaderboard leaderboard;
+        public Leaderboard leaderboard;
 
-        public LeaderboardPage(Leaderboard leaderboard)
+        public LeaderboardPage()
         {
             InitializeComponent();
-            this.leaderboard = leaderboard;
+            Initialize();
+        }
+
+        async Task Initialize()
+        {
+            this.leaderboard = await App.DataStore.GetLeaderboard();
             LeaderboardList.ItemsSource = this.leaderboard.Users;
             BindingContext = this;
         }

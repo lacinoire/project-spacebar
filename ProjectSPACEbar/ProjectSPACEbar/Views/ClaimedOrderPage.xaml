@@ -11,7 +11,7 @@
             <Label
                 Text="{Binding Text}" />
             <Label
-                Text="{Binding Description}" />
+                Text="{Binding DetailText}" />
             <Button
                 Text="Order fulfilled!"
                 Clicked="OnFulfilledClicked" />

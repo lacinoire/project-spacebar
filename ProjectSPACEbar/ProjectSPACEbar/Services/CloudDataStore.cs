@@ -30,9 +30,45 @@ namespace ProjectSPACEbar
 		}
 	}
 
+	public enum SkillsFilter
+	{
+		All,
+		Bought,
+		Available,
+		Basic,
+	}
+
+	public static class SkillsFilterHelper
+	{
+		public static string GetFilter(this SkillsFilter f)
+		{
+			switch (f)
+			{
+				case SkillsFilter.All: return "all";
+				case SkillsFilter.Bought: return "bought";
+				case SkillsFilter.Available: return "available";
+				case SkillsFilter.Basic: return "basic";
+			}
+			throw new Exception("Unhandled filter");
+		}
+	}
+
 	public class SkillResponse
 	{
+		public uint id;
+		public string name;
+		public uint xpCost;
+		public List<uint> nextSkills;
 
+		public Skill ToSkill()
+		{
+			return new Skill
+			{
+				Id = id,
+				Name = name,
+				XPcost = xpCost,
+			};
+		}
 	}
 
 	public class LeaderboardEntryResponse
@@ -96,23 +132,15 @@ namespace ProjectSPACEbar
 
 		public Order ToOrder()
 		{
-			return new Order
-			{
-				Id = id,
-				IsClaimed = isClaimed,
-				IsApproved = isApproved,
-				IsFinished = isFinished,
-				MenuItem = item.ToMenuItem(),
-				Creator = new Lazy<Task<User>>(async () =>
-				{
-					var store = App.DataStore;
-					return await store.GetUser(fromUser);
-				}),
-				Assignee = new Lazy<Task<User>>(async () =>
-				{
-					var store = App.DataStore;
-					return await store.GetUser(assignee);
-				}),
+            return new Order
+            {
+                Id = id,
+                IsClaimed = isClaimed,
+                IsApproved = isApproved,
+                IsFinished = isFinished,
+                MenuItem = item.ToMenuItem(),
+                CreatorName = fromUser,
+                AssigneeName = assignee,
 			};
 		}
 	}
@@ -189,9 +217,9 @@ namespace ProjectSPACEbar
 			return response.Select(o => o.ToOrder());
 		}
 
-		public async Task OrderAction(User user, int order, string action)
+		public async Task OrderAction(User user, Order order, string action)
 		{
-			var serializedItem = JsonConvert.SerializeObject(new { username = user.Name, order = order });
+			var serializedItem = JsonConvert.SerializeObject(new { username = user.Name, order = order.Id });
 
 			var response = await client.PostAsync($"orders/{action}",
 				new StringContent(serializedItem, Encoding.UTF8, "application/json"));
@@ -200,16 +228,47 @@ namespace ProjectSPACEbar
 				throw new Exception("Changing order was not successful");
 		}
 
-		public async Task<IEnumerable<SkillResponse>> GetSkills(User user)
+		/// <summary>
+		/// Returns skills without children.
+		/// </summary>
+		/// <param name="user">Current user</param>
+		/// <param name="skills">Filter returned skills</param>
+		/// <returns>Skills without the children list.</returns>
+		public async Task<IEnumerable<Skill>> GetSkills(User user, SkillsFilter skills)
 		{
-			var json = await client.GetStringAsync($"skills?username={user.Name}");
+			var json = await client.GetStringAsync($"skills?username={user.Name}&filter={skills.GetFilter()}");
 
-			return await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<SkillResponse>>(json));
+			var response = await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<SkillResponse>>(json));
+
+			return response.Select(s => s.ToSkill());
 		}
 
-		public async Task BuySkill(User user, int skill)
+		public async Task<SkillGraph> GetSkillGraph(User user)
 		{
-			var serializedItem = JsonConvert.SerializeObject(new { username = user.Name, skill = skill });
+			var json = await client.GetStringAsync($"skills?username={user.Name}&filter={SkillsFilter.All.GetFilter()}");
+
+			var response = await Task.Run(() => JsonConvert.DeserializeObject<List<SkillResponse>>(json));
+
+			var dict = new Dictionary<uint, Skill>(response.Select(r => new KeyValuePair<uint, Skill>(r.id, r.ToSkill())));
+
+			// Set children relation
+			foreach (var r in response)
+			{
+				var cur = dict[r.id];
+				foreach (var id in r.nextSkills)
+					cur.Children.Add(dict[id]);
+			}
+
+			var graph = new SkillGraph();
+			graph.All.AddRange(dict.Values.ToList());
+			// Well, not needed so far
+			throw new NotImplementedException();
+			return graph;
+		}
+
+		public async Task BuySkill(User user, Skill skill)
+		{
+			var serializedItem = JsonConvert.SerializeObject(new { username = user.Name, skill = skill.Id });
 
 			var response = await client.PostAsync($"skills",
 				new StringContent(serializedItem, Encoding.UTF8, "application/json"));

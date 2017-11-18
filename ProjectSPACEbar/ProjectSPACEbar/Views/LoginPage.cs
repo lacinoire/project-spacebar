@@ -38,13 +38,9 @@ namespace ProjectSPACEbar
                 Text = "Let's Go!",
                 FontSize = 20,
             };
-            login.Clicked += (sender, e) => {
-                App.CurrentUser = new User
-                {
-                    Name = entry.Text,
-                    CurrentXP = 10,
-                    EarnedXP = 10,
-                };
+            login.Clicked += async (sender, e) => {
+                await App.DataStore.RegisterUser(entry.Text);
+                App.CurrentUser = await App.DataStore.GetUser(entry.Text);
 
                 if (Device.RuntimePlatform == Device.iOS)
                     App.Current.MainPage = new MainPage();
