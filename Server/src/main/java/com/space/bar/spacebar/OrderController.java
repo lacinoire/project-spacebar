@@ -42,17 +42,51 @@ public class OrderController {
     }
 
     @PostMapping("claim")
-    public ResponseEntity<?> claimOrder(@RequestBody ChangeOrderRequest orderRequest) {
-        if (service.getUser(orderRequest.getUsername()) == null) {
+    public ResponseEntity<?> claimOrder(@RequestBody ChangeOrderRequest request) {
+        if (service.getUser(request.getUsername()) == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("User not found."));
-        } else if (!orders.containsKey(orderRequest.getOrder())) {
+        } else if (!orders.containsKey(request.getOrder())) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Order not found"));
-        } else if (orders.get(orderRequest.getOrder()).getFromUser().equals(orderRequest.getUsername())) {
+        } else if (orders.get(request.getOrder()).getFromUser().equals(request.getUsername())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("You cannot claim your own order"));
-        } else if (orders.get(orderRequest.getOrder()).getStatus().isClaimed()) {
+        } else if (orders.get(request.getOrder()).getStatus().isClaimed()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse("Order is not open"));
         } else {
-            orders.get(orderRequest.getOrder()).setAssignee(orderRequest.getUsername());
+            orders.get(request.getOrder()).setAssignee(request.getUsername());
+            return ResponseEntity.ok().build();
+        }
+    }
+
+    @PostMapping("finish")
+    public ResponseEntity<?> finishOrder(@RequestBody ChangeOrderRequest request) {
+        if (service.getUser(request.getUsername()) == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("User not found."));
+        } else if (!orders.containsKey(request.getOrder())) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Order not found"));
+        } else if (!orders.get(request.getOrder()).getStatus().isClaimed() || orders.get(request.getOrder()).getStatus().isFinished()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("Order is not claimed or already finished."));
+        } else if (!request.getUsername().equals(orders.get(request.getOrder()).getAssignee())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("You cannot finish another users's orders."));
+        } else {
+            orders.get(request.getOrder()).finishOrder();
+            fulfilOrder(orders.get(request.getOrder()));
+            return ResponseEntity.ok().build();
+        }
+    }
+
+    @PostMapping("approve")
+    public ResponseEntity<?> approveOrder(@RequestBody ChangeOrderRequest request) {
+        if (service.getUser(request.getUsername()) == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("User not found."));
+        } else if (!orders.containsKey(request.getOrder())) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Order not found"));
+        } else if (!orders.get(request.getOrder()).getStatus().isClaimed() || orders.get(request.getOrder()).getStatus().isApproved()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("Order is not claimed or already approved."));
+        } else if (!request.getUsername().equals(orders.get(request.getOrder()).getFromUser())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("You cannot approve another users's orders."));
+        } else {
+            orders.get(request.getOrder()).approveOrder();
+            fulfilOrder(orders.get(request.getOrder()));
             return ResponseEntity.ok().build();
         }
     }
@@ -80,5 +114,9 @@ public class OrderController {
 
     private Set<Order> filterOrders(Predicate<Order> filter) {
         return orders.values().stream().filter(filter).collect(Collectors.toSet());
+    }
+
+    private void fulfilOrder(Order order) {
+        // TODO
     }
 }

@@ -221,6 +221,93 @@
 						"description": ""
 					},
 					"response": []
+				},
+				{
+					"name": "Get claimed orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{host}}/orders?filter=claimed&username=Tobias",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"orders"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "claimed",
+									"equals": true
+								},
+								{
+									"key": "username",
+									"value": "Tobias",
+									"equals": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Finish order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"Tobias\",\n\t\"order\": 1\n}"
+						},
+						"url": {
+							"raw": "{{host}}/orders/finish",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"orders",
+								"finish"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Approve order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"qw3ry\",\n\t\"order\": 1\n}"
+						},
+						"url": {
+							"raw": "{{host}}/orders/approve",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"orders",
+								"approve"
+							]
+						},
+						"description": ""
+					},
+					"response": []
 				}
 			]
 		},
