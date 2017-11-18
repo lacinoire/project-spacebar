@@ -22,24 +22,24 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("orders")
 public class OrderController {
-    private final UserService service;
+    private final UserService users;
     private final Map<Integer,Order> orders = new HashMap<>();
     private final Menu menu;
 
     @Autowired
-    public OrderController(UserService service, Menu menu) {
-        this.service = service;
+    public OrderController(UserService users, Menu menu) {
+        this.users = users;
         this.menu = menu;
     }
 
     @PostMapping("new")
     public ResponseEntity<?> createOrder(@RequestBody OrderCreationRequest request) {
-        if (service.getUser(request.getUsername()) == null) {
+        if (users.getUser(request.getUsername()) == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("User not found."));
         } else if (menu.getMenuItemById(request.getItem()) == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Item not found"));
         } else {
-            MenuItem item = new MenuView(service.getUser(request.getUsername()).getSkills()).getMenuItemById(request.getItem());
+            MenuItem item = new MenuView(users.getUser(request.getUsername()).getSkills()).getMenuItemById(request.getItem());
             Order order = new Order(item, request.getUsername());
             orders.put(order.getId(), order);
             return ResponseEntity.ok().build();
@@ -48,7 +48,7 @@ public class OrderController {
 
     @PostMapping("claim")
     public ResponseEntity<?> claimOrder(@RequestBody ChangeOrderRequest request) {
-        if (service.getUser(request.getUsername()) == null) {
+        if (users.getUser(request.getUsername()) == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("User not found."));
         } else if (!orders.containsKey(request.getOrder())) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Order not found"));
@@ -64,7 +64,7 @@ public class OrderController {
 
     @PostMapping("finish")
     public ResponseEntity<?> finishOrder(@RequestBody ChangeOrderRequest request) {
-        if (service.getUser(request.getUsername()) == null) {
+        if (users.getUser(request.getUsername()) == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("User not found."));
         } else if (!orders.containsKey(request.getOrder())) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Order not found"));
@@ -81,7 +81,7 @@ public class OrderController {
 
     @PostMapping("approve")
     public ResponseEntity<?> approveOrder(@RequestBody ChangeOrderRequest request) {
-        if (service.getUser(request.getUsername()) == null) {
+        if (users.getUser(request.getUsername()) == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("User not found."));
         } else if (!orders.containsKey(request.getOrder())) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("Order not found"));
@@ -98,7 +98,7 @@ public class OrderController {
 
     @GetMapping
     public ResponseEntity<?> getOrders(@RequestParam("filter") String filter, @RequestParam("username") String username) {
-        if (service.getUser(username) == null) {
+        if (users.getUser(username) == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("User not found."));
         }
         switch (filter) {
@@ -123,8 +123,8 @@ public class OrderController {
 
     private void fulfilOrder(Order order) {
         if (!order.getStatus().isApproved() || !order.getStatus().isFinished()) return;
-        service.getUser(order.getFromUser()).addToXp(order.getItem().getXpGain());
-        service.getUser(order.getAssignee()).addToXp(150);
+        users.getUser(order.getFromUser()).addToXp(order.getItem().getXpGain());
+        users.getUser(order.getAssignee()).addToXp(150);
         orders.remove(order.getId());
     }
 }

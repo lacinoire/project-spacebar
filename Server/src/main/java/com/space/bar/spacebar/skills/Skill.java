@@ -17,4 +17,19 @@ public abstract class Skill {
         this.xpCost = xpCost;
         this.nextSkills.addAll(Arrays.asList(nextSkills));
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Skill skill = (Skill) o;
+
+        return id == skill.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
 }
