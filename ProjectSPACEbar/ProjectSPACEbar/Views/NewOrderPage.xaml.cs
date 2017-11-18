@@ -6,13 +6,13 @@ namespace ProjectSPACEbar
 {
     public partial class NewOrderPage : ContentPage
     {
-        public Item Item { get; set; }
+        public Order Item { get; set; }
 
         public NewOrderPage()
         {
             InitializeComponent();
 
-            Item = new Item
+            Item = new Order
             {
                 Text = "Item name",
                 Description = "This is an item description."

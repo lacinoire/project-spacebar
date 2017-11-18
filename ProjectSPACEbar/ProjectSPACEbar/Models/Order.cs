@@ -2,7 +2,7 @@
 
 namespace ProjectSPACEbar
 {
-    public class Item
+    public class Order
     {
         public string Id { get; set; }
         public string Text { get; set; }

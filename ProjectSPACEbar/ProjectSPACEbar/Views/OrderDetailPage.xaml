@@ -13,5 +13,8 @@
 		<Label
 			Text="{Binding Item.Description}"
 			FontSize="Small" />
+        <Button
+            Text="Claim Order!"
+            Clicked="OnClaimClicked" />
 	</StackLayout>
 </ContentPage>

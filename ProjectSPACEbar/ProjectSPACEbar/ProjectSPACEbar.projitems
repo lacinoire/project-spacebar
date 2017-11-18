@@ -9,14 +9,13 @@
     <Import_RootNamespace>ProjectSPACEbar</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Item.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Order.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\CloudDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\IDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\MockDataStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AboutViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ItemDetailViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ItemsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\MainPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
@@ -42,6 +41,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\SkillsPage.xaml.cs">
       <DependentUpon>SkillsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ClaimedOrderPage.xaml.cs">
+      <DependentUpon>ClaimedOrderPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml" />
@@ -56,6 +59,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\SkillsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ClaimedOrderPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
