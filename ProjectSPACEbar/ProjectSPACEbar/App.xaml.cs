@@ -9,7 +9,7 @@ namespace ProjectSPACEbar
         public static IDataStore<Order> DataStore => DependencyService.Get<IDataStore<Order>>() ?? new MockDataStore();
 
         public static bool UseMockDataStore = true;
-        public static string BackendUrl = "https://localhost:5000";
+        public static string BackendUrl = "http://vps.flakebi.de:8080";
         public static User CurrentUser { get; set; }
 
         public static List<Order> OpenOrders { get; set; }

@@ -10,5 +10,11 @@ namespace ProjectSPACEbar
         {
             InitializeComponent();
         }
+
+		void TestApi(object sender, EventArgs e)
+		{
+			CloudDataStore store = new CloudDataStore();
+			store.RegisterUser("myname");
+		}
     }
 }

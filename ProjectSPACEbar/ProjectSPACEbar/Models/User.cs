@@ -7,6 +7,7 @@ namespace ProjectSPACEbar
     {
         public List<Order> ClaimedOrders { get; }
         public List<Order> FulfilledOrdersWaitingForConfirmation { get; }
+		public string Name { get; }
 
         public User()
         {
