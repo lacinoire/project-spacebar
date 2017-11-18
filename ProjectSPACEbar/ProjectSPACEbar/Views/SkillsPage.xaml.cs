@@ -12,17 +12,7 @@ namespace ProjectSPACEbar.Views
         public SkillsPage()
         {
             InitializeComponent();
-            avaliableSkills = new ObservableCollection<Skill>();
-            avaliableSkills.Add(new Skill
-            {
-                Name = "5% of Beer",
-                XPcost = 50,
-            });
-            avaliableSkills.Add(new Skill
-            {
-                Name = "1l Cocktails",
-                XPcost = 235,
-            });
+            avaliableSkills = App.DataStore;
             SkillsList.ItemsSource = avaliableSkills;
             SkillsList.ItemSelected += OnItemSelected;
         }

@@ -19,12 +19,12 @@
                                     Orientation="Vertical"
                                     HorizontalOptions="StartAndExpand">
                                     <Label
-                                        Text="{Binding MenuItem.name}"
+                                        Text="{Binding MenuItem.Text}"
                                         LineBreakMode="NoWrap"
                                         Style="{DynamicResource ListItemTextStyle}"
                                         FontSize="16" />
                                     <Label
-                                        Text="{Binding MenuItem."
+                                        Text="{Binding MenuItem.DetailText}"
                                         LineBreakMode="NoWrap"
                                         Style="{DynamicResource ListItemDetailTextStyle}"
                                         FontSize="13" />

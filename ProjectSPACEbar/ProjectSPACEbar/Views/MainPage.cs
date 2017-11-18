@@ -25,7 +25,7 @@ namespace ProjectSPACEbar
                         Title = "Profile",
                         Icon = "user_male.png",
                     };
-                    leaderboardPage = new NavigationPage(new LeaderboardPage(App.Leaderboard))
+                    leaderboardPage = new NavigationPage(new LeaderboardPage())
                     {
                         Title = "Leaderboard",
                         Icon = "bar_chart.png",
@@ -52,7 +52,7 @@ namespace ProjectSPACEbar
                     {
                         Title = "Profile",
                     };
-                    leaderboardPage = new LeaderboardPage(App.Leaderboard)
+                    leaderboardPage = new LeaderboardPage()
                     {
                         Title = "Leaderboard",
                     };

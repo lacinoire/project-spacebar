@@ -16,7 +16,7 @@ namespace ProjectSPACEbar
 		/// </summary>
 		public decimal size { get; set; }
 
-        public string Text =>
+        public string Text => size + "l " + name;
         public string DetailText => "Cost: " + cost + "€, Gain: " + xp + " XP";
 	}
 

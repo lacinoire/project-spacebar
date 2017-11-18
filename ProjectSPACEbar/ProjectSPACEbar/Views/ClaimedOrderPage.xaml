@@ -9,9 +9,9 @@
             Orientation="Vertical"
             Padding="10">
             <Label
-                Text="{Binding MenuItem.name}" />
+                Text="{Binding Text}" />
             <Label
-                Text="{Binding CreatorName}" />
+                Text="{Binding DetailText}" />
             <Button
                 Text="Order fulfilled!"
                 Clicked="OnFulfilledClicked" />

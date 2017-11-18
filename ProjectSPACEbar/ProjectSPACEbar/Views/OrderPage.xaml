@@ -33,12 +33,12 @@
                                     Orientation="Vertical"
                                     HorizontalOptions="StartAndExpand">
                                     <Label
-                                        Text="{Binding Order.MenuItem.name}"
+                                        Text="{Binding Order.Text}"
                                         LineBreakMode="NoWrap"
                                         Style="{DynamicResource ListItemTextStyle}"
                                         FontSize="16" />
                                     <Label
-                                        Text="{Binding Order.CreatorName}"
+                                        Text="{Binding Order.DetailText}"
                                         LineBreakMode="NoWrap"
                                         Style="{DynamicResource ListItemDetailTextStyle}"
                                         FontSize="13" />

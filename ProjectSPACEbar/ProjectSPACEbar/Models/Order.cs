@@ -13,5 +13,8 @@ namespace ProjectSPACEbar
 		public bool IsApproved { get; set; }
         public bool IsFinished { get; set; }
         public MenuItem MenuItem { get; set; }
+
+        public string Text => MenuItem.Text;
+        public string DetailText => "For " + CreatorName;
     }
 }
