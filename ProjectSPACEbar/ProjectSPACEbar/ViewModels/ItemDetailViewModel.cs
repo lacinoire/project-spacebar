@@ -4,8 +4,8 @@ namespace ProjectSPACEbar
 {
     public class ItemDetailViewModel : BaseViewModel
     {
-        public Item Item { get; set; }
-        public ItemDetailViewModel(Item item = null)
+        public Order Item { get; set; }
+        public ItemDetailViewModel(Order item = null)
         {
             Title = item?.Text;
             Item = item;

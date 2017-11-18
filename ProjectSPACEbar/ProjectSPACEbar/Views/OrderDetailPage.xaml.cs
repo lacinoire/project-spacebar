@@ -4,6 +4,8 @@ using Xamarin.Forms;
 
 namespace ProjectSPACEbar
 {
+    using Views;
+
     public partial class OrderDetailPage : ContentPage
     {
         ItemDetailViewModel viewModel;
@@ -13,7 +15,7 @@ namespace ProjectSPACEbar
         {
             InitializeComponent();
 
-            var item = new Item
+            var item = new Order
             {
                 Text = "Item 1",
                 Description = "This is an item description."
@@ -28,6 +30,11 @@ namespace ProjectSPACEbar
             InitializeComponent();
 
             BindingContext = this.viewModel = viewModel;
+        }
+
+        async void OnClaimClicked(object sender, EventArgs e) {
+            await Navigation.PushAsync(new ClaimedOrderPage(viewModel.Item));
+            Navigation.RemovePage(Navigation.NavigationStack[1]);
         }
     }
 }

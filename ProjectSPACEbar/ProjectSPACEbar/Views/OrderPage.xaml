@@ -1,47 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage
-	xmlns="http://xamarin.com/schemas/2014/forms"
-	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-	x:Class="ProjectSPACEbar.OrderPage"
-	Title="Orders"
-	x:Name="BrowseItemsPage">
-	<!--<ContentPage.ToolbarItems>
-		<ToolbarItem
-			Text="Add"
-			Clicked="AddItem_Clicked" />
-	</ContentPage.ToolbarItems>-->
-	<ContentPage.Content>
-		<StackLayout>
-			<ListView
-				x:Name="ItemsListView"
-				ItemsSource="{Binding Items}"
-				VerticalOptions="FillAndExpand"
-				HasUnevenRows="true"
-				RefreshCommand="{Binding LoadItemsCommand}"
-				IsPullToRefreshEnabled="true"
-				IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-				CachingStrategy="RecycleElement"
-				ItemSelected="OnItemSelected">
-				<ListView.ItemTemplate>
-					<DataTemplate>
-						<ViewCell>
-							<StackLayout
-								Padding="10">
-								<Label
-									Text="{Binding Text}"
-									LineBreakMode="NoWrap"
-									Style="{DynamicResource ListItemTextStyle}"
-									FontSize="16" />
-								<Label
-									Text="{Binding Description}"
-									LineBreakMode="NoWrap"
-									Style="{DynamicResource ListItemDetailTextStyle}"
-									FontSize="13" />
-							</StackLayout>
-						</ViewCell>
-					</DataTemplate>
-				</ListView.ItemTemplate>
-			</ListView>
-		</StackLayout>
-	</ContentPage.Content>
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ProjectSPACEbar.OrderPage"
+    Title="Orders"
+    x:Name="BrowseItemsPage">
+    <!--<ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Add"
+            Clicked="AddItem_Clicked" />
+    </ContentPage.ToolbarItems>-->
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView
+                x:Name="ItemsListView"
+                ItemsSource="{Binding OpenOrders}"
+                VerticalOptions="FillAndExpand"
+                ItemSelected="OnItemSelected">
+                <!--HasUnevenRows="true"
+                RefreshCommand="{Binding LoadItemsCommand}"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                CachingStrategy="RecycleElement"-->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <!--<StackLayout
+                                Orientation="Horizontal"
+                                Padding="10">-->
+                                <StackLayout
+                                    Padding="10">
+                                    <!-- Orientation="Vertical"-->
+                                    <Label
+                                        Text="{Binding Text}"
+                                        LineBreakMode="NoWrap"
+                                        Style="{DynamicResource ListItemTextStyle}"
+                                        FontSize="16" />
+                                    <Label
+                                        Text="{Binding Description}"
+                                        LineBreakMode="NoWrap"
+                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                        FontSize="13" />
+                                </StackLayout>
+                                <!--<Button
+                                    Text="Details"
+                                    Clicked="DetailsClicked"
+                                    Command="{Binding OnDetailsClicked}"
+                                    CommandParameter="{Binding}" />-->
+                            <!--</StackLayout>-->
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

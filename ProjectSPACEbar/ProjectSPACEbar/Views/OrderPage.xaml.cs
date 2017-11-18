@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -8,27 +9,39 @@ namespace ProjectSPACEbar
 {
     public partial class OrderPage : ContentPage
     {
-        ItemsViewModel viewModel;
+        List<Order> OpenOrders => App.OpenOrders;
 
         public OrderPage()
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new ItemsViewModel();
+            BindingContext = this;
+             //LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+
+            //MessagingCenter.Subscribe<NewOrderPage, Order>(this, "AddItem", async (obj, item) =>
+            //{
+            //    var _item = item as Order;
+            //    OpenOrders.Add(_item);
+            //    await App.DataStore.AddItemAsync(_item);
+            //});
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            var item = args.SelectedItem as Item;
-            if (item == null)
+            var order = args.SelectedItem as Order;
+            if (order == null)
+            {
                 return;
-
-            await Navigation.PushAsync(new OrderDetailPage(new ItemDetailViewModel(item)));
-
-            // Manually deselect item
+            }
+            await Navigation.PushAsync(new OrderDetailPage(new ItemDetailViewModel(order)));
             ItemsListView.SelectedItem = null;
+
         }
 
+        async void OnDetailsClicked(object parameter)
+        {
+            await Navigation.PushAsync(new OrderDetailPage(new ItemDetailViewModel((Order)parameter)));
+        }
         //async void AddItem_Clicked(object sender, EventArgs e)
         //{
         //    await Navigation.PushAsync(new NewOrderPage());
@@ -38,8 +51,36 @@ namespace ProjectSPACEbar
         {
             base.OnAppearing();
 
-            if (viewModel.Items.Count == 0)
-                viewModel.LoadItemsCommand.Execute(null);
+            //if (OpenOrders.Count == 0)
+                //LoadItemsCommand.Execute(null);
         }
+
+        public Command LoadItemsCommand { get; set; }
+
+        //async Task ExecuteLoadItemsCommand()
+        //{
+        //    if (IsBusy)
+        //        return;
+
+        //    IsBusy = true;
+
+        //    try
+        //    {
+        //        OpenOrders.Clear();
+        //        var items = await App.DataStore.GetItemsAsync(true);
+        //        foreach (var item in items)
+        //        {
+        //            OpenOrders.Add(item);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.WriteLine(ex);
+        //    }
+        //    finally
+        //    {
+        //        IsBusy = false;
+        //    }
+        //}
     }
 }
