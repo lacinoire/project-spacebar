@@ -14,7 +14,7 @@
                         <ViewCell>
                             <StackLayout
                                 Orientation="Horizontal"
-                                Padding="10">
+                                Padding="5,5,15,5">
                                 <StackLayout
                                     Padding="10"
                                     Orientation="Vertical"

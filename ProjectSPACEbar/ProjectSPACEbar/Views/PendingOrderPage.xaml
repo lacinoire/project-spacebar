@@ -4,7 +4,8 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	x:Class="ProjectSPACEbar.Views.PendingOrderPage"
     Title="My Order"
-    x:Name="PendingOrderPage">
+    x:Name="PendingOrderPage"
+    NavigationPage.HasBackButton="False">
     <StackLayout
         Spacing="20"
         Padding="15">

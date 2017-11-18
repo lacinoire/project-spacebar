@@ -1,75 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage
-	xmlns="http://xamarin.com/schemas/2014/forms"
-	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-	x:Class="ProjectSPACEbar.ProfilePage"
-	xmlns:vm="clr-namespace:ProjectSPACEbar;"
-	Title="About">
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ProjectSPACEbar.ProfilePage"
+    xmlns:vm="clr-namespace:ProjectSPACEbar;"
+    Title="About">
     <ContentPage.Content>
-        <StackLayout
-            Padding="5"
-            Orientation="Vertical"
-            VerticalOptions="FillAndExpand">
-            <StackLayout
-                Padding="5"
-                Orientation="Horizontal">
-                <Label
-                    Text="Name: "
-                    FontSize="16"
-                    TextColor="Navy"
-                    FontAttributes="Bold"
-                    HorizontalTextAlignment="Center"/>
-                <Label
-                    Text="{Binding Name}"
-                    FontSize="14"
-                    HorizontalTextAlignment="Center"/>
-            </StackLayout>
-            <StackLayout
-                Padding="5"
-                Orientation="Horizontal">
-                <Label
-                    Text="Total Earned XP: "
-                    FontSize="16"
-                    TextColor="Navy"
-                    FontAttributes="Bold"
-                    HorizontalTextAlignment="Center"/>
-                <Label
-                    Text="{Binding EarnedXP}"
-                    FontSize="14"
-                    HorizontalTextAlignment="Center" />
-            </StackLayout>
-            <StackLayout
-                Padding="5"
-                Orientation="Horizontal">
-                <Label
-                    Text="Currently Unspent XP: "
-                    FontSize="16"
-                    TextColor="Navy"
-                    FontAttributes="Bold"
-                    HorizontalTextAlignment="Center"/>
-                <Label
-                    Text="{Binding CurrentXP}"
-                    FontSize="14"
-                    HorizontalTextAlignment="Center"/>
-            </StackLayout>
-            <StackLayout
-                Padding="5"
-                Orientation="Horizontal">
-                <Label
-                    Text="Skills: "
-                    FontSize="16"
-                    TextColor="Navy"
-                    FontAttributes="Bold"
-                    HorizontalTextAlignment="Center"/>
-                <Label
-                    Text="{Binding Name}"
-                    FontSize="14"
-                    HorizontalTextAlignment="Center" />
-            </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                    Width="Auto" />
+                <ColumnDefinition
+                    Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label
+                Text="Name: "
+                FontSize="16"
+                TextColor="Navy"
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Start"
+                VerticalTextAlignment="Center"
+                Grid.Row="0"
+                Grid.Column="0"/>
+            <Label
+                Text="{Binding Name}"
+                FontSize="14"
+                HorizontalTextAlignment="Start"
+                VerticalTextAlignment="Center"
+                Grid.Row="0"
+                Grid.Column="1" />
+            <Label
+                Text="Total Earned XP: "
+                FontSize="16"
+                TextColor="Navy"
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Start"
+                VerticalTextAlignment="Center"
+                Grid.Row="1"
+                Grid.Column="0" />
+            <Label
+                Text="{Binding EarnedXP}"
+                FontSize="14"
+                HorizontalTextAlignment="Start"
+                VerticalTextAlignment="Center"
+                Grid.Row="1"
+                Grid.Column="1" />
+            <Label
+                Text="Currently Unspent XP: "
+                FontSize="16"
+                TextColor="Navy"
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Start"
+                VerticalTextAlignment="Center"
+                Grid.Row="2"
+                Grid.Column="0" />
+            <Label
+                Text="{Binding CurrentXP}"
+                FontSize="14"
+                HorizontalTextAlignment="Start"
+                VerticalTextAlignment="Center"
+                Grid.Row="2"
+                Grid.Column="1" />
+            <Label
+                Text="Skills: "
+                FontSize="16"
+                TextColor="Navy"
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Start"
+                VerticalTextAlignment="Center"
+                Grid.Row="3"
+                Grid.Column="0" />
+            <Label
+                Text="{Binding SkillsListText}"
+                FontSize="14"
+                HorizontalTextAlignment="Start"
+                VerticalTextAlignment="Center"
+                Grid.Row="3"
+                Grid.Column="1" />
             <Label
                 Text="Logos from https://icons8.com/ios under CC-BY-ND 3.0 Unported"
                 FontSize="10"
-                VerticalOptions="End"/>
-        </StackLayout>
+                VerticalOptions="End"
+                Grid.Row="4"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
