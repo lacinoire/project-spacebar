@@ -1,4 +1,4 @@
-![Project SPACEbar][spacebar_transparent.png?raw=true]
+![Project SPACEbar](spacebar_transparent.png?raw=true)
 
 ## An RPG for Crowdsourcing a Bar.
 
@@ -39,7 +39,7 @@ A skill may have follow-up skills, so you may have new skills available for unlo
 
 The skill tree of a bar could look similar to this:
 
-![skill tree][./skilltree.png]
+![skill tree](./skilltree.png)
 
 For the future, even more skills and skill types are planned:
 
