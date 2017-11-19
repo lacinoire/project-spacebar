@@ -20,7 +20,8 @@ namespace ProjectSPACEbar
             InitializeComponent();
             MenuItems = new ObservableCollection<MenuItemViewModel>();
             BindingContext = this;
-			//.OrdersChanged += async () => Initialize();
+            Menu.ItemsSource = MenuItems;
+			App.OrdersChanged += async () => Initialize();
             //Menu.ItemSelected += (object sender, SelectedItemChangedEventArgs args) => Menu.SelectedItem = null;
             Initialize();
         }
@@ -36,7 +37,6 @@ namespace ProjectSPACEbar
 					OnOrderClicked = new Command(async () => await OrderClicked(m)),
 				});
             }
-            //Menu.ItemsSource = MenuItems;
         }
 
         async Task OrderClicked(MenuItem menuItem)
