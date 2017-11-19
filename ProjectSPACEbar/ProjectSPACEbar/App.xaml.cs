@@ -9,6 +9,7 @@ namespace ProjectSPACEbar
 		public delegate void ChangedDelegate();
 
         public static CloudDataStore DataStore => DependencyService.Get<CloudDataStore>();
+		public static ILogger Logger { get; set; }
 
 		public static event ChangedDelegate AllChanged;
 		public static event ChangedDelegate OrdersChanged;

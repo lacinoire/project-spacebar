@@ -49,6 +49,7 @@ namespace ProjectSPACEbar.Windows
                 rootFrame = new Frame();
 
 				Xamarin.Forms.Forms.Init(e);
+				ProjectSPACEbar.App.Logger = new Logger();
 
 				rootFrame.NavigationFailed += OnNavigationFailed;
 

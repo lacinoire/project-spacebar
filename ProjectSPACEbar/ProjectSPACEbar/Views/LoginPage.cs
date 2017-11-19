@@ -46,14 +46,16 @@ namespace ProjectSPACEbar
 				catch
 				{
 					// Registering failed, so maybe we are already registered
+					App.Logger.Info("Registering failed, continuing");
 				}
 				try
 				{
 					App.CurrentUser = await App.DataStore.GetUser(entry.Text);
 				}
-				catch
+				catch (Exception ex)
 				{
 					// TODO Display error
+					App.Logger.Error("Cannot login because {0}", ex.ToString());
 					return;
 				}
 

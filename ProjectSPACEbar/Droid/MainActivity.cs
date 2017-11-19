@@ -7,6 +7,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Xamarin.Forms;
 
 namespace ProjectSPACEbar.Droid
 {
@@ -18,11 +19,12 @@ namespace ProjectSPACEbar.Droid
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
-            base.OnCreate(bundle);
+			base.OnCreate(bundle);
 
-            global::Xamarin.Forms.Forms.Init(this, bundle);
+            Forms.Init(this, bundle);
+			App.Logger = new Logger();
 
-            LoadApplication(new App());
+			LoadApplication(new App());
         }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)

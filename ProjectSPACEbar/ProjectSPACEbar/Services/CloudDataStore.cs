@@ -166,10 +166,13 @@ namespace ProjectSPACEbar
 
 		public async Task RegisterUser(string name)
 		{
+			App.Logger.Info("Registering user {0}", name);
 			var serializedItem = JsonConvert.SerializeObject(new { username = name });
 
 			var response = await client.PostAsync($"users",
 				new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+
+			App.Logger.Info("Registering answer: {0}", response.Content);
 
 			if (!response.IsSuccessStatusCode)
 				throw new Exception(string.Format("Creating user was not successful ({0}): {1}",
@@ -178,9 +181,12 @@ namespace ProjectSPACEbar
 
 		public async Task<User> GetUser(string name)
 		{
+			App.Logger.Info("Get user info for {0}", name);
 			var json = await client.GetStringAsync($"users?username={name}");
 
 			var response = await Task.Run(() => JsonConvert.DeserializeObject<UserResponse>(json));
+
+			App.Logger.Info("Got user");
 			return new User
 			{
 				EarnedXP = response.totalXp,
@@ -201,10 +207,13 @@ namespace ProjectSPACEbar
 
 		public async Task CreateOrder(User user, MenuItem item)
 		{
+			App.Logger.Info("Create order for {0}", user.Name);
 			var serializedItem = JsonConvert.SerializeObject(new { username = user.Name, item = item.id });
 
 			var response = await client.PostAsync($"orders/new",
 				new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+
+			App.Logger.Info("Create order got {0}", response.Content);
 
 			if (!response.IsSuccessStatusCode)
 				throw new Exception(string.Format("Creating order was not successful ({0}): {1}",
@@ -221,10 +230,13 @@ namespace ProjectSPACEbar
 
 		public async Task OrderAction(User user, Order order, string action)
 		{
+			App.Logger.Info("{0} does {1} on order", user.Name, action);
 			var serializedItem = JsonConvert.SerializeObject(new { username = user.Name, order = order.Id });
 
 			var response = await client.PostAsync($"orders/{action}",
 				new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+
+			App.Logger.Info("Create order got {0}", response.Content);
 
 			if (!response.IsSuccessStatusCode)
 				throw new Exception(string.Format("Changing order was not successful ({0}): {1}",
@@ -271,10 +283,13 @@ namespace ProjectSPACEbar
 
 		public async Task BuySkill(User user, Skill skill)
 		{
+			App.Logger.Info("Buy skill {0} for {1}", skill.Name, user.Name);
 			var serializedItem = JsonConvert.SerializeObject(new { username = user.Name, skill = skill.Id });
 
 			var response = await client.PostAsync($"skills",
 				new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+
+			App.Logger.Info("Buying skill got {0}", response.Content);
 
 			if (!response.IsSuccessStatusCode)
 				throw new Exception(string.Format("Buying skill was not successful ({0}): {1}",
