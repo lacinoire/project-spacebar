@@ -1,4 +1,4 @@
-![Project SPACEbar][./spacebar_transparent.png]
+![Project SPACEbar][./spacebar_transparent.png?raw=true]
 
 ## An RPG for Crowdsourcing a Bar.
 
