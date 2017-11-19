@@ -11,21 +11,23 @@ namespace ProjectSPACEbar
 
     public partial class NewOrderPage : ContentPage
     {
+        public bool IsInitializing;
+
         public ObservableCollection<MenuItemViewModel> MenuItems { get; }
 
         public NewOrderPage()
         {
             InitializeComponent();
             MenuItems = new ObservableCollection<MenuItemViewModel>();
-			Menu.ItemsSource = MenuItems;
             BindingContext = this;
-			App.OrdersChanged += async () => await Initialize();
+			//.OrdersChanged += async () => Initialize();
+            //Menu.ItemSelected += (object sender, SelectedItemChangedEventArgs args) => Menu.SelectedItem = null;
             Initialize();
         }
 
         async Task Initialize()
         {
-			MenuItems.Clear();
+            MenuItems.Clear();
             IEnumerable<MenuItem> menuList = (await App.DataStore.GetMenu(App.CurrentUser)).Items;
 			foreach (var m in menuList)
 			{
@@ -33,7 +35,8 @@ namespace ProjectSPACEbar
 				{
 					OnOrderClicked = new Command(async () => await OrderClicked(m)),
 				});
-			}
+            }
+            //Menu.ItemsSource = MenuItems;
         }
 
         async Task OrderClicked(MenuItem menuItem)

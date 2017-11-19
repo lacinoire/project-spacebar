@@ -23,10 +23,11 @@ namespace ProjectSPACEbar
             OpenOrders = new ObservableCollection<OrderViewModel>();
 			OrdersListView.ItemsSource = OpenOrders;
 
-			App.OrdersChanged += async () => await Initialize();
+            App.OrdersChanged += async () => await Initialize();
+            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+
 			Initialize();
 
-            //LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
             //MessagingCenter.Subscribe<NewOrderPage, Order>(this, "AddItem", async (obj, item) =>
             //{
@@ -38,16 +39,16 @@ namespace ProjectSPACEbar
 
         async Task Initialize()
         {
-			OpenOrders.Clear();
+            OpenOrders.Clear();
             IEnumerable<Order> orderList = await App.DataStore.GetOrders(App.CurrentUser, OrderFilter.Open);
 
-			foreach (var o in orderList)
-			{
-				OpenOrders.Add(new OrderViewModel(o)
-				{
-					OnDetailsClicked = new Command(async () => await DetailsClicked(o)),
-				});
-			}
+            foreach (var o in orderList)
+            {
+                OpenOrders.Add(new OrderViewModel(o)
+                {
+                    OnDetailsClicked = new Command(async () => await DetailsClicked(o)),
+                });
+            }
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
@@ -56,7 +57,7 @@ namespace ProjectSPACEbar
             if (order == null)
                 return;
             await Navigation.PushAsync(new OrderDetailPage(order));
-            //OrdersListView.SelectedItem = null;
+            OrdersListView.SelectedItem = null;
         }
 
         async Task DetailsClicked(Order order)
@@ -72,36 +73,40 @@ namespace ProjectSPACEbar
         {
             base.OnAppearing();
 
-            //if (OpenOrders.Count == 0)
-            //LoadItemsCommand.Execute(null);
+            if (OpenOrders.Count == 0)
+                LoadItemsCommand.Execute(null);
         }
 
         public Command LoadItemsCommand { get; set; }
 
-        //async Task ExecuteLoadItemsCommand()
-        //{
-        //    if (IsBusy)
-        //        return;
+        async Task ExecuteLoadItemsCommand()
+        {
+            if (IsBusy)
+                return;
 
-        //    IsBusy = true;
+            IsBusy = true;
 
-        //    try
-        //    {
-        //        OpenOrders.Clear();
-        //        var items = await App.DataStore.GetItemsAsync(true);
-        //        foreach (var item in items)
-        //        {
-        //            OpenOrders.Add(item);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Debug.WriteLine(ex);
-        //    }
-        //    finally
-        //    {
-        //        IsBusy = false;
-        //    }
-        //}
+            try
+            {
+                OpenOrders.Clear();
+                IEnumerable<Order> orderList = await App.DataStore.GetOrders(App.CurrentUser, OrderFilter.Open);
+
+                foreach (var o in orderList)
+                {
+                    OpenOrders.Add(new OrderViewModel(o)
+                    {
+                        OnDetailsClicked = new Command(async () => await DetailsClicked(o)),
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
     }
 }

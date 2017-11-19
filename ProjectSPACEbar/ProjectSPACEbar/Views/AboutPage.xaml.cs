@@ -12,7 +12,7 @@ namespace ProjectSPACEbar
         public ProfilePage()
         {
             InitializeComponent();
-            App.OrdersChanged += async () =>
+            App.AllChanged += async () =>
             {
                 App.CurrentUser = await App.DataStore.GetUser(App.CurrentUser.Name);
                 await Initialize();

@@ -15,13 +15,13 @@
             <ListView
                 x:Name="OrdersListView"
                 VerticalOptions="FillAndExpand"
-                HasUnevenRows="true">
-                <!--ItemSelected="OnItemSelected"
                 HasUnevenRows="true"
                 RefreshCommand="{Binding LoadItemsCommand}"
                 IsPullToRefreshEnabled="true"
                 IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                CachingStrategy="RecycleElement"-->
+                CachingStrategy="RecycleElement">
+                <!--ItemSelected="OnItemSelected"
+                HasUnevenRows="true"-->
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

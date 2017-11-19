@@ -30,6 +30,7 @@ namespace ProjectSPACEbar.Views
             var boughtSkill = args.SelectedItem as Skill;
             if (boughtSkill == null || App.CurrentUser.CurrentXP < boughtSkill.XPcost)
             {
+                SkillsList.SelectedItem = null;
                 return;
             }
             await App.DataStore.BuySkill(App.CurrentUser, boughtSkill);
