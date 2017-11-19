@@ -126,11 +126,21 @@
     <ImageAsset Include="Assets.xcassets\Contents.json">
       <InProject>false</InProject>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\iPhone_icon%402x.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\iPhone_icon%403x.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\iPad.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\iPadPro.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\app_store.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\iPhone_icon%402x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\iPhone_icon%403x.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\iPad.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\iPadPro.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\app_store.png">
+      <InProject>false</InProject>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\tab_about.png" />
