@@ -30,8 +30,7 @@ namespace ProjectSPACEbar
             };
             Entry entry = new Entry
             {
-                Placeholder = "username",
-                PlaceholderColor = Color.AliceBlue,
+                Placeholder = "Username",
             };
             Button login = new Button
             {
