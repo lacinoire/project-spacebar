@@ -62,7 +62,7 @@ Run `./gradlew bootRepackage` or `gradlew.bat bootRepackage` to get an executabl
 
 ### App
 
-todo
+Get Visuals Studio (for Mac or Windows) with Xamarin. Open the Project-SPACEbar Project and hit run!
 
 ## Technologies used
 
