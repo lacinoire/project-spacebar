@@ -15,7 +15,7 @@ namespace ProjectSPACEbar
 		public static event ChangedDelegate OrdersChanged;
 
 		public static bool UseMockDataStore = true;
-        public static string BackendUrl = "http://vps.flakebi.de:8080";
+        public static string BackendUrl = "https://vps.flakebi.de/spacebar/";
         public static User CurrentUser { get; set; }
 		
         public static Leaderboard Leaderboard { get; set; }
